@@ -77,6 +77,26 @@ export const MockResponse: Record<string, any> = {
                 }
             ]
         },
+        {
+            moduleID: 18,
+            moduleTitle: "Sample Module",
+            moduleCode: "TASK_ALLOCATION",
+            routerNavigation: "/root/taskAllocation",
+            cssClass: "fa-icon-user-check-regular",
+            moduleGroup: "Transactions",
+            formsInfo: [
+                {
+                    formsID: 25,
+                    formsTitle: "Sample Form",
+                    formsCode: "TASK_ALLOCATION",
+                    formRoute: "/root/taskAllocation/list",
+                    formType: "SUB_FORM",
+                    approvalType: "CAPABILITY",
+                    capability: "MANAGE"
+                }
+            ]
+        }
+        
  
     ],
 
