@@ -1,0 +1,102 @@
+@if (checklistDetails.operationType == 'MNG') {
+  <div class="qc_checkbox customchecklist pr-3">
+    @if (type=='CHK_LIST') {
+      <div>
+        <mat-label class="qc_checkbox-header">{{checklistDetails.checklistHeading}}</mat-label>
+        @if (checklistDetails.isShowSelectAllOption && !checklistDetails.isSingleCheckBox) {
+          <div class="qc_checkbox-all">
+            <mat-checkbox id="selectAll" name="Select All" color="primary" [(ngModel)]="checklistDetails.isSelectAllSelected"
+              (change)="onSelectAllChange($event.checked)">
+              Select All
+            </mat-checkbox>
+          </div>
+        }
+        @if (!checklistDetails.isSingleCheckBox && list.length == 0) {
+          <div class="qc_checkbox-sub">
+            <ul>
+              @for (item of showDrpItems; track item) {
+                <li>
+                  <mat-checkbox id="{{chkID}}_{{item.itemID}}_{{item.itemCode}}" name="{{item.item}}" color="primary"
+                    [labelPosition]="checklistDetails.labelPosition" [checked]="item.isSelected" [disabled]="item.isDisabled"
+                    (change)="onCheckChange(item, $event.checked)">
+                    {{item.item}}
+                  </mat-checkbox>
+                </li>
+              }
+            </ul>
+            @if (checklistDetails.isShowTextBox) {
+              <div>
+                <app-textbox [input]="textFieldDetails" [inputValue]="textFieldDetails.inputValue"
+                (value)="textFieldDetails.inputValue = $event" #textField></app-textbox>
+              </div>
+            }
+          </div>
+        }
+        @if (!checklistDetails.isSingleCheckBox && list.length > 0) {
+          <div class="qc_checkbox-sub">
+            <ul>
+              @for (item of list; track item) {
+                <li>
+                  <mat-checkbox color="primary" [labelPosition]="checklistDetails.labelPosition" [checked]="item.isSelected"
+                    [disabled]="item.isDisabled" (change)="onCheckChange(item, $event.checked)">
+                    {{item.item}}
+                  </mat-checkbox>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+        @if (checklistDetails.isSingleCheckBox) {
+          <div class="qc_checkbox-sub">
+            <span class="mr-3">
+              <mat-checkbox color="primary" [checked]="singleCheckBoxDetails.isSelected"
+                [labelPosition]="checklistDetails.labelPosition" [disabled]="singleCheckBoxDetails.isDisabled"
+                (change)="singleCheckBoxChange($event)">
+                {{singleCheckBoxDetails.item}}
+              </mat-checkbox>
+            </span>
+          </div>
+        }
+      </div>
+    }
+    @if (type=='CHIP_LIST') {
+      <div>
+        @if (!checklistDetails.isSingleCheckBox && list.length == 0) {
+          <div class="qc_checkbox-sub">
+            <div cdkDropListGroup class="my-grid-layout pl-1 pr-1 mt-2 ">
+              @for (item of showDrpItems; track item; let index = $index) {
+                <div cdkDropList cdkDropListOrientation="horizontal"
+                  [cdkDropListData]="index" (cdkDropListDropped)="drop($event)">
+                  <div cdkDrag class="dragedrop" [cdkDragDisabled]="!item.isSelected">
+                    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                    <div [ngClass]=" {'dragedrop-inner-selected' : item.isSelected, 'dragedrop-inner' : !item.isSelected}"
+                      (click)="onCheckChange(item, !item.isSelected)">
+                      <div>
+                        <span class="dragedroptitle-in"> {{index+1}} . {{item.item}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+            <mat-label class="ml-1"><b>Note</b> : Click the item to select/unselect, Drag the selected item to set the order</mat-label>
+            <!-- <ul>
+            <li *ngFor="let item of showDrpItems">
+              <mat-checkbox id="{{chkID}}_{{item.itemID}}_{{item.itemCode}}" name="{{item.item}}" color="primary"
+                [labelPosition]="checklistDetails.labelPosition" [checked]="item.isSelected" [disabled]="item.isDisabled"
+                (change)="onCheckChange(item, $event)">
+                {{item.item}}
+              </mat-checkbox>
+            </li>
+          </ul> -->
+        </div>
+      }
+    </div>
+  }
+</div>
+} @else {
+  <div>
+    <app-label [appLabel]="labelData" [isTableView]="'NO'"></app-label>
+  </div>
+}
+

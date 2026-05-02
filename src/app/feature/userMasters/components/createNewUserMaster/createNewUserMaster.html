@@ -1,0 +1,61 @@
+<mat-card class="mt-2">
+  <mat-card-content>
+ 
+    <div class="page-title-secondary w-100 mb-3">
+      General Information
+    </div>
+ 
+    <!-- Item Name -->
+    <div class="row">
+      <div class="col-md-12">
+        <app-textbox #validate [input]="fieldsInfos.itemName" [inputValue]="userMasterBO.itemName"
+          (value)="userMasterBO.itemName = $event">
+        </app-textbox>
+      </div>
+    </div>
+ 
+    <!-- Category + Department -->
+    <div class="row mt-3">
+ 
+      <div class="col-md-6">
+        <app-dropdown
+          #validate [dropdownDetails]="fieldsInfos.category" [dropdownList]="fieldsInfos.categoryList"
+          [selectedValues]="selectedCategory"
+          (changeOfdropdownValue)="setCategory($event)">
+        </app-dropdown>
+      </div>
+ 
+      <div class="col-md-6">
+        <app-textbox
+          #validate [input]="fieldsInfos.departmentCode" [inputValue]="userMasterBO.departmentCode"
+          (value)="userMasterBO.departmentCode = $event">
+        </app-textbox>
+      </div>
+ 
+    </div>
+ 
+    <!-- Description -->
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <app-textbox
+          #validate [input]="fieldsInfos.description" [inputValue]="userMasterBO.description"
+          (value)="userMasterBO.description = $event">
+        </app-textbox>
+      </div>
+    </div>
+ 
+    <!-- Buttons -->
+    <div class="mt-3">
+ 
+      <custom-button btnText="Save" className="primary_button"
+        (btnClick)="save()">
+      </custom-button>
+ 
+      <custom-button btnText="Add" className="secondary_button ml-2"
+        (btnClick)="saveAndCreate()">
+      </custom-button>
+ 
+    </div>
+ 
+  </mat-card-content>
+</mat-card>

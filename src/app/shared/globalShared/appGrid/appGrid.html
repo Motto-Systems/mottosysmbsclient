@@ -1,0 +1,247 @@
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 1.5rem;
+  }
+
+  .item {
+    flex: 1 1 calc(50% - 16px);
+  }
+</style>
+@if (isShowSearchBar || isShowStatesDropDown) {
+<app-field-skeleton-loader [fieldSkeletonBO]="{count: 1, options: [{class: 'w-100', theme: {height: '25px'}}]}">
+  <div class="mt-3 mb-3 hide-no-child" fxLayout="row" fxLayoutAlign="space-between top" fxLayoutGap="20px">
+    <div fxFlex.lt-sm="100" fxFlex.lt-md="80" fxFlex="80" fxFlex="grow" fxLayoutGap="10px"
+      [ngClass]="{'hide': !isShowSearchBar, 'itemgrid-search-view' :isShowSearchBar }">
+      <div class="search-input" fxFlex="grow" [ngClass]="{'hide': !isShowSearchBar}">
+        <mat-form-field class="search-field-grid" appearance="outline">
+          <input type="text" matInput [placeholder]="searchPlaceholder ? searchPlaceholder : 'Search'"
+            [(ngModel)]="searchText" [ngClass]="{'hide': !isShowSearchBar, '' :isShowSearchBar }"
+            (keyup)="filterData($event)">
+          <span matPrefix class="mat-icon-suffix">
+            <span class="fa-icon-magnifying-glass-regular"></span>
+          </span>
+        </mat-form-field>
+      </div>
+
+      @if (isShowStatesDropDown) {
+      <div>
+        <button matIconButton [matMenuTriggerFor]="menuFilter" class="filter-options"
+          aria-label="Example icon-button with a menu">
+          <i class="fa-icon-filter-list-light"></i>
+        </button>
+        <mat-menu #menuFilter="matMenu" class="filter-options-menu">
+          @for (item of DropdownStatesData.stateList; track $index) {
+          <button (click)="getState(item.itemCode)" mat-menu-item class="list-options">
+            <span>{{item.item}}</span>
+            @if ((item.itemCode === dropDownStateInputField.currentState)) {
+            <i class="fa-icon-check-mat-icon"></i>
+            }
+          </button>
+          }
+        </mat-menu>
+      </div>
+      }
+    </div>
+  </div>
+</app-field-skeleton-loader>
+}
+<div class="qc_n-table">
+  @if (dataSource) {
+  <mat-table [dataSource]="dynamicGridDataSource" multiTemplateDataRows appInfiniteScroll
+    (scrolled)="loadMoreData($event)" [actualData]="dataSource.data" [InitialSize]="gridDataInitialSize"
+    [loadMore]="dynamicGridDataSource.data" #matTable [ngClass]="gridCssClass">
+    @for (item of headers; track item) {
+    <ng-container [matColumnDef]="item.columnDef">
+      <mat-header-cell *matHeaderCellDef class="{{item.width}}"> {{item.header}}
+        @if ((item.columnDef == 'select' && isShowHeaderCheckbox)) {
+        <mat-checkbox [disabled]="!isManage" (change)="$event ? selectAllCheckBoxes($event) : null"
+          [checked]="allCheckboxSelected">
+        </mat-checkbox>
+        }
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index" [attr.data-label]="item.header" class="{{item.width}}">
+        @if (isManageFields(item.columnDef) && !item.isShowIcon && !item.isShowIdentityIcon) {
+        <div class="d-flex">
+          <span>{{ row | formatString: item }}</span>
+          @if (row['isChanged'] && item.isShowFlag) {
+          <span>
+            <div class="isShowFlag"></div>
+          </span>
+          }
+        </div>
+        }
+        <!-- Show Identity Icon -->
+        @if (item.isShowIdentityIcon && getIconName(item.cell(row))) {
+        <span>
+          <div class="grid-icon-btn">
+            <fa-icon [icon]="getIconName(item.cell(row))" [class]="getClassName(item.cell(row))"
+              [matTooltip]="getIcontooltip(item.cell(row))"></fa-icon>
+          </div>
+        </span>
+        }
+        @if (item.isShowIcon && getIconName(item.cell(row))) {
+        <div>
+          <button class="grid-icon-btn" [matTooltip]="getIcontooltip(item.cell(row))" (click)="onIconClick(row, item)">
+            <fa-icon [icon]="getIconName(item.cell(row))" [class]="getClassName(item.cell(row))"></fa-icon>
+          </button>
+        </div>
+        }
+        @if (item.isShowIcon && item.isColumnAction && (getIconName(item.cell(row)) == null)) {
+        <div>
+          <button class="grid-icon-btn" (click)="onscreenActionClick(item, row)">
+            <fa-icon [icon]="'edit'"></fa-icon>
+          </button>
+        </div>
+        }
+        @if (showCheckbox(row, item.columnDef)) {
+        <mat-checkbox (change)="selectSingleChk($event, row)" [checked]="row.select"
+          [disabled]="(isChkItemDisable(row) || !isManage)">
+        </mat-checkbox>
+        }
+      </mat-cell>
+    </ng-container>
+    }
+    <ng-container matColumnDef="expandedDetail">
+      <div *matCellDef="let element" [attr.colspan]="headers.length" class="w-100 grid-more-details">
+        @if (isFlexLayoutExtraCol && !isExtraColList) {
+        <div class="grid-more-details">
+          @for (val of extraColumns; track val) {
+          <div class="extra-columns">
+            <div class="">
+              <div class="label-name">
+                {{val.header}}:
+              </div>
+              <div class="">
+                {{ element | formatString: val }}
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        }
+        @if(!isFlexLayoutExtraCol) {
+        @for(val of extraColumns; let i = $index; track i) {
+        <div class="extra-columns">
+          <mat-label>
+            <div class="label-name">{{val.header}}:</div>
+            <div>{{element[val.columnDef] || 'N / A'}}</div>
+          </mat-label>
+        </div>
+        }
+        }
+        @if(isExtraColList) {
+        @for(obj of element.todoExtraInfo; let j = $index; track j){
+        <div class="extra-columns">
+          <mat-label>
+            <div class="label-name">{{obj.label}}:</div>
+            <div>{{obj.value}}</div>
+          </mat-label>
+        </div>
+        }
+        }
+      </div>
+    </ng-container>
+    <!-- Actions -->
+    <ng-container matColumnDef="activities" stickyEnd>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        @for (columnAct of columnActions; track columnAct) {
+        <div>
+          <button class="icon-btn" [matTooltip]="columnAct.toolTip"
+            (click)="onscreenActionClick(columnAct.action, row)">
+            <span [ngClass]="columnAct.icon"></span>
+          </button>
+          <!-- <fa-icon [icon]="'edit'" [matTooltip]="columnAct.toolTip" (click)="onscreenActionClick(columnAct.action, row)" class="cursor-pointer">
+              </fa-icon>  -->
+        </div>
+        }
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions" stickyEnd>
+      <mat-header-cell *matHeaderCellDef fxLayout="row" fxFlex="grow" fxFlex="10">Action</mat-header-cell>
+      <mat-cell *matCellDef="let row" fxLayout="row" fxFlex="grow" fxFlex="10">
+        @if (getActions(row['actions'], 'Exception').length > 0) {
+        <span>
+          @for (action of getActions(row['actions'], 'Exception'); track action) {
+          <div>
+            <button class="grid-icon-btn info-status" [matTooltip]="action.toolTip"
+              (click)="row['actions'].onActionClick(row, action.action, action.actionData)">
+              <span class="fa-icon-circle-exclamation-regular"></span>
+            </button>
+          </div>
+          }
+        </span>
+        }
+        @if (getActions(row['actions'], 'Actions').length > 1) {
+        <span>
+          <a href="Javascript:" [matMenuTriggerFor]="menu" class="actions-icon">
+            <!-- <app-icon [iconType]="'MENU'"></app-icon> -->
+            <span class="fa-icon-square-ellipsis-vertical-light"></span>
+          </a>
+          <mat-menu #menu="matMenu" yPosition="below" xPosition="before" class="grid_context_menu">
+            @for (action of getActions(row['actions']); track action; let index = $index) {
+            <span id="act{{index + 1}}" (click)="row['actions'].onActionClick(row, action.action, action.actionData)"
+              class="cursor-pointer">
+              <fa-icon [icon]="action.icon">
+              </fa-icon>
+              {{action.toolTip}}
+            </span>
+            }
+          </mat-menu>
+        </span>
+        }
+        @if (getActions(row['actions'], 'Actions').length == 1) {
+        <span>
+          @for (action of getActions(row['actions'], 'Actions'); track action) {
+          <div>
+            <button class="grid-icon-btn" (click)="row['actions'].onActionClick(row, action.action, action.actionData)"
+              [matTooltip]="action.toolTip">
+              <fa-icon [icon]="action.icon"></fa-icon>
+            </button>
+          </div>
+          }
+        </span>
+        }
+      </mat-cell>
+    </ng-container>
+    @if (extraColumns && extraColumns.length >0) {
+    <ng-container matColumnDef="extAction">
+      <mat-header-cell *matHeaderCellDef class="app-grid-ext-action"></mat-header-cell>
+      <mat-cell *matCellDef="let row ;let idx = dataIndex" class="app-grid-ext-action" id="extAction">
+        <!-- <i class="fas fa-chevron-down" style="cursor:pointer; font-size: 15px;" mousehoverout
+          [allowMouseEvt]="extraColumns && extraColumns.length > 0"></i> -->
+        <!-- <fa-icon [icon]="'chevron-down'" style="cursor:pointer; font-size: 15px;" mousehoverout
+        [allowMouseEvt]="extraColumns && extraColumns.length > 0"></fa-icon> -->
+        <span style="cursor:pointer;" mousehoverout (click)="$event.stopPropagation();"
+          [allowMouseEvt]="extraColumns && extraColumns.length > 0 && !isExpandIconDisable(row)"
+          [matTooltip]="isExpandIconDisable(row) ? expandIconTooltip : ''">
+          <i class="fa-icon-angle-down-light"></i>
+        </span>
+      </mat-cell>
+    </ng-container>
+    }
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row id="ParentGrid{{i}}" [ngClass]="'ParentGrid' + getStatusRow(row)"
+      [ngStyle]="{ 'background-color': row.backgroundColor }"
+      *matRowDef="let row; columns: displayedColumns;let i = dataIndex;" (click)="onRowSelected(row)">
+    </mat-row>
+    <mat-row id="ChildGrid" style="display: none;" *matRowDef="let row; columns: ['expandedDetail']"
+      class="example-detail-row"></mat-row>
+  </mat-table>
+  }
+</div>
+
+@if (( ((!dataSource || !dataSource.data || dataSource.data.length <= 0) || (!dynamicGridDataSource ||
+  !dynamicGridDataSource.data || dynamicGridDataSource.data.length <=0 )))) { <div class="mt-4 mb-2" [align]="'center'">
+  <span>{{noDataTitle}}</span>
+  </div>
+  }
+
+  @if (isShowPagination) {
+  <div>
+    <app-pagination></app-pagination>
+  </div>
+  }

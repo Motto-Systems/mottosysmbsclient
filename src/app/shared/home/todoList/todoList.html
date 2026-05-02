@@ -1,0 +1,102 @@
+<div class="w-100">
+  <div class="todoscrollgrid">
+    <div class="todo-leftpanel">
+      <div class="todo-thumbnail">
+        <img src="assets/img/todoimg.svg" />
+
+        <div class="todo-txt">
+          <span>TO</span>
+          <span>DO</span>
+        </div>
+        <div class="todo-design"></div>
+        <div class="todo-design2"></div>
+      </div>
+    </div>
+
+    <div class="home-right-panel">
+      <div class="todolist-lft">
+        <div class="todolisthead">
+
+
+
+          <mat-form-field appearance="outline">
+
+            <input matInput id="filterSearch" placeholder="Search module" [(ngModel)]="searchModule">
+            <span matSuffix class="searc-icon-btn-k mat-icon-suffix">
+              <span class="fa-icon-search-icon-thin"></span>
+            </span>
+          </mat-form-field>
+
+        </div>
+        <div class="leftpannel-marginx">
+
+
+
+          <div class="todo-list-max-view">
+            @defer (on timer(500ms)) {
+            @for (t of getFilterMdoules(); track t; let i = $index) {
+            <div class="dbsectionhead" [ngClass]="{'dbsectionheadactive': t.formId == formID()}"
+              (click)="getTodoList(t, i)">
+              <span class="todo-txt pl-3"> {{t.formTitle}} </span>
+              <span class="todo-line"> </span>
+              <span class="countc">{{t.formCount}}</span>
+            </div>
+            }
+            }@placeholder(minimum 300ms){
+            <ngx-skeleton-loader [count]="totalToDoList().length" appearance="line" animation="progress"
+              [theme]="{height: '40px'}" />
+            }
+          </div>
+
+        </div>
+      </div>
+
+      <div class="todo-right-flex-panel">
+
+
+
+
+        <div class="todo-right-top-head">
+          <div class="todo-sarch">
+            <div class="todo-sarch">
+
+              <mat-form-field appearance="outline">
+                <input matInput id="filterData" placeholder="{{searchTitle()}}" [(ngModel)]="searchText"
+                  autocomplete="off" />
+
+                <span matSuffix class="searc-icon-btn-k mat-icon-suffix">
+                  <span class="fa-icon-search-icon-thin"></span>
+                </span>
+
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="todo-bg-2" [ngClass]="{'border-left-toto': totalToDoList().length < 14}">
+          <div class="todosearchtitle">
+            @if (getFilterTodoItems().length > 0) {
+            <div>{{searchTitle()}}</div>
+            }
+          </div>
+
+          @if (getFilterTodoItems().length > 0) {
+          <todo-table [dataSource]="getFilterTodoItems()" #todoTable (actionClick)="onActionClicked($event)">
+          </todo-table>
+          }
+
+          @if (!getFilterTodoItems() || getFilterTodoItems().length == 0) {
+          <div class="alldonetodolist pt-3">
+            <div class="checkicon">
+              <img [src]="'assets/img/tasks_todo.png'" width="auto" height="100px" />
+            </div>
+            <div class="alldone">
+              <span>Total<br />Pending Tasks</span><span class="count">{{totalPendingActivities()}}</span>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

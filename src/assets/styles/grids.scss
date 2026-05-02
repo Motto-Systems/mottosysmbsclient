@@ -1,0 +1,293 @@
+.popupwidth100:has(app-modal-popup[ng-reflect-page-title="Add MRN Items"]) {
+  max-width: 50vw !important;
+}
+
+.popupwidth100:has(
+    app-modal-popup[ng-reflect-page-title="Process Inward Material Items"]
+  ) {
+  max-width: 50vw !important;
+}
+
+.popupwidth100:has(
+    app-modal-popup[ng-reflect-page-title="General Inward Material Items"]
+  ) {
+  max-width: 50vw !important;
+}
+
+.popupwidth100:has(
+    app-modal-popup[ng-reflect-page-title="Add Purchase Order Items"]
+  ) {
+  max-width: 50vw !important;
+}
+
+.popupwidth100:has(
+    app-modal-popup[ng-reflect-page-title="Outward Material Information F"]
+  ) {
+  max-width: 50vw !important;
+}
+.popupwidth100:has(
+    app-modal-popup[ng-reflect-page-title="Add Materials / Items"]
+  ) {
+  max-width: 50vw !important;
+}
+
+.popupwidth100:has(
+    app-modal-popup[ng-reflect-page-title="Stock Transfer Remarks"]
+  ) {
+  max-width: 50vw !important;
+}
+
+.grid-view-indent-issue {
+  .mat-mdc-table {
+    .mat-mdc-header-row .mat-mdc-header-cell {
+      padding: 0 10px 0 0 !important;
+
+      .mat-sort-header-content {
+        text-align: left !important;
+      }
+    }
+  }
+
+  .mat-mdc-table {
+    .mat-mdc-row .mat-mdc-cell {
+      padding: 0 10px 0 0 !important;
+    }
+  }
+
+  app-textbox:has(.mat-mdc-form-field) {
+    margin: 12px 0 10px 0;
+  }
+}
+
+.indent-receipt-items-grid {
+  .mat-mdc-table {
+    .mat-mdc-header-row .mat-mdc-header-cell {
+      padding: 0 10px 0 10px !important;
+
+      .mat-sort-header-content {
+        text-align: left !important;
+      }
+    }
+  }
+
+  .mat-mdc-table {
+    .mat-mdc-row .mat-mdc-cell {
+      padding: 0 10px 0 10px !important;
+    }
+  }
+}
+
+.indent-dispence-items-grid {
+  .mat-mdc-table {
+    .mat-mdc-header-row .mat-mdc-header-cell {
+      padding: 0 10px 0 10px !important;
+
+      .mat-sort-header-content {
+        text-align: left !important;
+      }
+    }
+  }
+
+  .mat-mdc-table {
+    .mat-mdc-row .mat-mdc-cell {
+      padding: 0 10px 0 10px !important;
+    }
+  }
+}
+.step5-grid-col-w {
+  .mat-mdc-table {
+    .mat-mdc-header-row .mat-mdc-header-cell {
+      padding: 0 10px 0 10px !important;
+
+      .mat-sort-header-content {
+        text-align: left !important;
+      }
+    }
+  }
+
+  .mat-mdc-table {
+    .mat-mdc-row .mat-mdc-cell {
+      padding: 0 10px 0 10px !important;
+    }
+  }
+}
+
+app-modal-popup[ng-reflect-page-title="Upload Documents"] {
+  .mat-mdc-table {
+    .mat-mdc-header-row,
+    .mat-mdc-row {
+      .mat-mdc-header-cell,
+      .mat-mdc-cell {
+        &:nth-child(2) {
+          padding: 0 10px;
+          min-width: 40% !important;
+        }
+
+        &:nth-child(3) {
+          padding: 0 10px;
+        }
+
+        &:nth-child(4) {
+          min-width: 15% !important;
+        }
+
+        &:nth-child(5) {
+          min-width: 18% !important;
+        }
+      }
+    }
+  }
+}
+
+quantity-consumption[ng-reflect-mode="MNG"]{
+
+
+.batch-info-table{
+  .mat-mdc-table {
+    .mat-mdc-header-row,
+    .mat-mdc-row {
+      .mat-mdc-header-cell,
+      .mat-mdc-cell {
+        &:nth-child(1) {
+          padding: 0 10px;
+          width: 60px!important;
+          max-width: 60px!important;
+        }
+        &:nth-child(2) {
+           width: 170px!important;
+          max-width: 170px!important;
+        }
+
+        &:nth-child(3) {
+          padding: 0 10px;
+          
+        }
+
+        &:nth-child(4) {
+        justify-content: center;
+        text-align: center;
+        }
+
+        &:nth-child(5) {
+          justify-content: center;
+        text-align: center;
+        }
+        &:nth-child(6) {
+       
+        }
+        &:nth-child(7) {
+         justify-content: center;
+        text-align: center;
+        }
+        &:nth-child(8) {
+          min-width: 20%;
+        }
+        &:nth-child(9) {
+          
+        }
+        &:nth-child(10) {
+            width: 100px!important;
+          max-width: 100px!important;
+        }
+      }
+    }
+  }
+}
+
+}
+
+quantity-consumption[ng-reflect-mode="VIEW"]{
+
+
+.batch-info-table{
+  .mat-mdc-table {
+    .mat-mdc-header-row,
+    .mat-mdc-row {
+      .mat-mdc-header-cell,
+      .mat-mdc-cell {
+        &:nth-child(1) {
+          padding: 0 10px;
+          width: 60px!important;
+          max-width: 60px!important;
+        }
+        &:nth-child(2) {
+           
+        }
+
+        &:nth-child(3) {
+          padding: 0 10px;
+           width: 170px!important;
+          max-width: 170px!important;
+        }
+
+        &:nth-child(4) {
+          justify-content: center;
+        text-align: center;
+        }
+        &:nth-child(5) {
+         
+        min-width: 20%;
+        }
+        &:nth-child(6) {
+          justify-content: center;
+        text-align: center;
+        }
+        &:nth-child(7) {
+          width: 100px!important;
+          max-width: 100px!important;
+        }
+        
+      }
+    }
+  }
+}
+
+}
+
+app-modal-popup[ng-reflect-page-title="Approved Vendor List"] {
+  .mat-mdc-table {
+    .mat-mdc-header-row,
+    .mat-mdc-row {
+      .mat-mdc-header-cell,
+      .mat-mdc-cell {
+        &:nth-child(1) {
+          padding: 0 10px;
+          width: 120px!important;
+          max-width: 120px;
+        }
+        &:nth-child(2) {
+          padding: 0 10px;
+          max-width: 140px;
+        }
+
+        &:nth-child(3) {
+          flex: 1 1 10%;
+          padding: 0 10px;
+        }
+
+        &:nth-child(4) {
+          min-width: 10% !important;
+        }
+
+        &:nth-child(5) {
+          min-width: 15% !important;
+        }
+        &:nth-child(6) {
+         max-width: 130px;
+         justify-content: center;
+       
+          padding: 0 10px;
+        }
+        &:nth-child(7) {
+      
+        }
+        &:nth-child(8) {
+          max-width: 100px !important;
+        }
+      }
+    }
+  }
+}
+.singletab-appfileld:has(custom-button:has(.vendor-list)) {
+    display: contents!important;
+}

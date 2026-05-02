@@ -1,0 +1,65 @@
+<!-- <div class="lkp-grid">
+    <div class="add_scroll lkp-grid-content" [align]="'center'">
+        <app-grid (onRowClicked)="onRowClick($event);" [headers]='headerData' [dataSource]='dataSource' [gridCssClass]="lookupCode"
+            (isSelectedCheckBox)="allRowsSelected($event)"></app-grid>
+    </div>
+    <div align="right" class="lkp-total">
+        Total No. of Records : {{length}}
+    </div>
+</div> -->
+
+<div class="lkp-grid mt-0">
+    <div class="lkp-grid-content" style="text-align: center; max-height: 300px; overflow-y: auto;" 
+         (scroll)="onScroll($event)" #scrollContainer>
+        
+        <!-- Independent mat-table implementation -->
+        <mat-table [dataSource]="dataSource" class="lookup-table">
+            
+            <!-- Checkbox column for multi-select -->
+            <ng-container matColumnDef="select" *ngIf="multiSelectOption">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null; onRowSelectionChange(row, $event.checked)"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Dynamic columns based on headerData -->
+            <ng-container [matColumnDef]="header.columnDef" *ngFor="let header of headerData">
+                <mat-header-cell *matHeaderCellDef>{{ header.header }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" (click)="onCellClick(element)">
+                    {{ element | formatString: header }}
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                     [class.selected-row]="selection.isSelected(row)"
+                     (click)="onRowClickSingle(row)"></mat-row>
+        </mat-table>
+        
+        <!-- Loader at bottom of table -->
+        <div *ngIf="isLoadingMore" class="loading-more" style="text-align: center; padding: 10px;">
+            <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+            <span style="margin-left: 10px;">Loading more data...</span>
+        </div>
+        
+        <!-- Load more button (shows when content is not scrollable or as fallback) -->
+        <div *ngIf="!isLoadingMore && hasMoreData && dataSource?.data?.length > 0 && length > dataSource?.data?.length" 
+             class="load-more-btn" style="text-align: center; padding: 10px;">
+            <button mat-button (click)="onLoadMore(); isContentScrollable()" color="primary">
+                Load More ({{dataSource?.data?.length}}/{{length}})
+            </button>
+        </div>
+    </div>
+    <div class="lkp-total text-right">
+        Total No. of Records: {{dataSource.data.length}} / {{length}}
+    </div>
+</div>

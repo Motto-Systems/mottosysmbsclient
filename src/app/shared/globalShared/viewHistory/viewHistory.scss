@@ -1,0 +1,13 @@
+.viewHeader{
+    text-align: right;
+    cursor: pointer;
+}
+
+.fade {
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+    opacity: 0; /* Start hidden */
+  }
+  
+  .fade.show {
+    opacity: 1; /* Fully visible */
+  }

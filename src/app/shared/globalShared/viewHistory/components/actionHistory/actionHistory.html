@@ -1,0 +1,27 @@
+<app-common-template [leftSubTitle]="''" [rightSubTitle]=" uiTitles.Action_History" [templateActions]="tempActions"
+  (tempAction)="onTempAction($event)">
+  <ng-container ngProjectAs="left-content">
+    <div class="page-title-secondary mb-3">History Details</div>
+    <div class="w-100">
+      @for (item of historyOptions.labelList; track $index) {
+      <app-label class="customCss" [appLabel]="item.label"></app-label>
+      }
+    </div>
+  </ng-container>
+  <ng-container ngProjectAs="right-content">
+    <div class="w-100">
+      @if (actionCode === 'ACTION_HISTORY') {
+      <div class="mt-4">
+        <app-grid [headers]="headerData" [dataSource]="dataSource" [extraColumns]="extendedData"
+          [isShowSearchBar]="true"></app-grid>
+      </div>
+      }
+      @if (actionCode === 'CURRENT_HISTORY') {
+      <div class="mt-4">
+        <app-grid [headers]="currentHistoryHeaders" [dataSource]="currentHistoryDataSource"
+          [isShowSearchBar]="true"></app-grid>
+      </div>
+      }
+    </div>
+  </ng-container>
+</app-common-template>

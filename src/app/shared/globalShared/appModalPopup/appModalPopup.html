@@ -1,0 +1,44 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" #popupDrag="cdkDrag" #popupDragElem (cdkDragMoved)="onDragMoved($event)"  class="draggable-popup">
+  @if (!isMinimized && isModalPopup) {
+    <div class="mheader dialog-header" cdkDragHandle #popupHandle>
+      <ul>
+        <li> {{pageTitle}} </li>
+        @if (isShowDialog) {
+          <li class="d-flex">
+            <span aria-hidden="false" class="close-btn minimize" (click)="minimizePopup()"  style="margin:0 10px 0 0">
+              <span class="fa-icon-remove-mat-icon"></span>
+            </span>
+            <span aria-hidden="false" class="close-btn" (click)="close()">
+              <span class="fa-icon-circle-xmark-solid"></span>
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  @if (!isMinimized) {
+    <div [ngClass]=" {'mbodypopup': isModalPopup}">
+      <mat-card (mousedown)="$event.stopPropagation()">
+        <mat-card-content>
+          <ng-content></ng-content>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+
+</div>
+
+@if (isMinimized) {
+  <div #myDiv
+    class="popup-minimize maximize-popup-click"
+    [class.blink]="blinkMinimizedBar"
+    (mousedown)="$event.stopPropagation()"
+    >
+    <div class="pop-title">{{pageTitle}}</div>
+    <div class="icons-options">
+      <span class="fa-icon-angle-right-duotone-light minimize cursor-pointer" (click)="maximizePopup()"></span>
+      <span class="fa-icon-xmark-regular cursor-pointer" (click)="close()"></span>
+    </div>
+  </div>
+}

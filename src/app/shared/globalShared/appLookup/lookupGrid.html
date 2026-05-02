@@ -1,0 +1,19 @@
+<!-- <div class="lkp-grid">
+    <div class="add_scroll lkp-grid-content" [align]="'center'">
+        <app-grid (onRowClicked)="onRowClick($event);" [headers]='headerData' [dataSource]='dataSource'
+            (isSelectedCheckBox)="allRowsSelected($event)"></app-grid>
+    </div>
+    <div align="right" class="lkp-total">
+        Total No. of Records : {{length}}
+    </div>
+</div> -->
+
+<div class="lkp-grid mt-0">
+    <div class="add_scroll lkp-grid-content" [align]="'center'">
+        <app-grid (onRowClicked)="onRowClick($event);" [headers]='headerData' [dataSource]='dataSource'
+            (isSelectedCheckBox)="allRowsSelected($event)" [gridDataInitialSize]="lookupInitialSize"></app-grid>
+    </div>
+    <div align="right" class="lkp-total">
+        Total No. of Records : {{length}}
+    </div>
+</div>

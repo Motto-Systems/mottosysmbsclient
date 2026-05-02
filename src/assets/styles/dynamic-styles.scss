@@ -1,0 +1,43 @@
+.dynamic-com-ul-k {
+    column-gap: 20px;
+  
+    .input-element {
+      &[ng-reflect-fx-flex="70"] {
+        flex-basis: calc(70% - 20px) !important;
+      }
+  
+      &[ng-reflect-fx-flex="50"] {
+        flex-basis: calc(50% - 20px) !important;
+        max-width: calc(50% - 10px)!important;
+  
+        .mat-mdc-form-field-infix {
+          width: 100% !important;
+        }
+      }
+  
+      &[ng-reflect-fx-flex="30"] {
+        flex-basis: calc(30% - 20px) !important;
+        flex-grow: 0 !important;
+        max-width: calc(30% - 10px)!important;
+      }
+
+      &[ng-reflect-fx-flex="25"] {
+        flex-basis: calc(25% - 20px) !important;
+        max-width: calc(25% - 10px)!important;
+      }
+  
+      &[ng-reflect-fx-flex="20"] {
+        flex-basis: calc(20% - 20px) !important;
+        max-width: calc(20% - 10px)!important;
+      }
+    }
+  
+    &:nth-last-child(1) {
+      &:has(.button-element[ng-reflect-fx-flex="100"]),
+      .button-element[ng-reflect-fx-flex="70"] {
+        app-field {
+          margin-left: auto;
+        }
+      }
+    }
+  }

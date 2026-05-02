@@ -1,0 +1,64 @@
+@if (dropdownDetails.viewType == 'MNG') {
+<div>
+  <app-field-skeleton-loader>
+    <div class="singletab-appfileld customdropdown">
+      <ul>
+        <li>
+          <span>
+            <mat-form-field appearance="outline" class="full-width custom-select"
+              [ngClass]="getClassFromPlaceholder(dropdownDetails.labelText)">
+              @if (dropdownDetails.labelText == '') {
+              <mat-label class="empty-label"></mat-label>
+              }
+              @if (dropdownDetails.labelText !== '') {
+              <mat-label> {{ dropdownDetails.labelText }}
+              </mat-label>
+              }
+              <mat-select #select [(ngModel)]="selectedValues" [multiple]="dropdownDetails.isMultiple"
+                [disabled]="dropdownDetails.isDisabled" (focus)="focusEvent()"
+                (selectionChange)="changeOfValue($event)">
+                @if (dropdownDetails.isMultiple && dropdownDetails.isShowSelectAll) {
+                <div class="select-all">
+                  <mat-checkbox color="primary" [(ngModel)]="dropdownDetails.isAllSelected"
+                    (change)="selectAll()">Select
+                    All
+                  </mat-checkbox>
+                </div>
+                }
+                <div class="select-option">
+                  <mat-divider></mat-divider>
+                  @if (!dropdownDetails.isMultiple && dropdownDetails.hideSelect) {
+                  <mat-option value="">Select</mat-option>
+                  }
+                  @if (dropdownDetails.isSearch && (showDrpItems && showDrpItems.length || 0) > dropdownSearchCount) {
+                  <div class="custom-select-view">
+                    <mat-form-field placeholder="input.label" class="full-width" appearance="outline">
+                      <mat-label>Search</mat-label>
+                      <input matInput [(ngModel)]="searchTerm" placeholder="Search..." />
+                    </mat-form-field>
+                  </div>
+                  }
+                  @if (filteredDrpItems.length <=0 ) { 
+                    <mat-option value="no-data" disabled> No ({{dropdownDetails.labelText}}) available </mat-option>
+                  }
+                    @for (item of filteredDrpItems; track item) {
+                    <mat-option class="select-option" (click)="onOptionClick(item)"
+                      [value]="dropdownDetails.isValueID ? item.itemID : item.itemCode">{{item.item ?
+                      item.item :
+                      item.itemID}}
+                    </mat-option>
+                    }
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </app-field-skeleton-loader>
+</div>
+} @else {
+<div>
+  <app-label [appLabel]="labelData" [isTableView]="isTableView"></app-label>
+</div>
+}

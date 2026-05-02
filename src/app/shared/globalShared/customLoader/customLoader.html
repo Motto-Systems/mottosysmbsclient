@@ -1,0 +1,15 @@
+<div class="loader-overlay">
+    <div class="loader-card mat-elevation-z8">
+        <div class="spinner-container">
+            <mat-progress-spinner class="custom-spinner" color="primary" mode="indeterminate" diameter="56"
+                strokeWidth="5">
+            </mat-progress-spinner>
+        </div>
+        @if (message) {
+        <div class="loader-message">
+            <i class="loader-icon {{icon}}" color="primary"></i>
+            <span>{{ message}}</span>
+        </div>
+        }
+    </div>
+</div>

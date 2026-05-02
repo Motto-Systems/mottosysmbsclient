@@ -1,0 +1,58 @@
+@if (input.mode == 'MNG') {
+  <app-field-skeleton-loader>
+    @if (input.type== 'TextBox' || input.inputType == 'decimal') {
+      <ul>
+        <li class="singletab-appfileld ">
+          <!-- <span> {{input.placeholder}}</span> -->
+          <!-- To display textBox appearance="outline" -->
+          <mat-form-field placeholder="input.label" appearance="outline" class="full-width"
+            [ngClass]="getClassFromPlaceholder(input.placeholder)" #formField>
+            <mat-label>{{input.placeholder}} </mat-label>
+            <input matInput [(ngModel)]="inputValue" [disabled]="input.isDisabled"
+              [fxFlex]="autoGeneratePasswordApplicable == 'Yes' ? 95 : 100"
+              (keypress)=" input.inputType != 'all' ? isEvent($event): ''" autocomplete="off"
+              [maxlength]="input.maxLength != -1 ? input.maxLength: ''" (blur)="emitValues()"
+              (keyup.enter)="search()" [type]="input.inputType === 'password' ? 'password' : 'text'">
+              @if (input.inputType === 'password') {
+                <span matSuffix class="passwordIcon"
+                  (click)="toggleInputType(input)">
+                  <fa-icon [icon]="input.inputType === 'password' ? 'eye' : 'eye-slash'"></fa-icon>
+                </span>
+              }
+              @if (autoGeneratePasswordApplicable === 'Yes') {
+                <span matSuffix class="passwordIcon"
+                  (click)="generatePassword()">
+                  <fa-icon icon="lock"></fa-icon>
+                </span>
+              }
+              @if (input.uom && input.isShowUomSpan) {
+                <span matSuffix>{{input.uom}}</span>
+              }
+              <!-- <mat-hint align="end" *ngIf="input.maxLength != -1">{{inputValue?.length || 0}} /
+              {{input.maxLength}}
+            </mat-hint> -->
+          </mat-form-field>
+        </li>
+      </ul>
+    }
+    @if (input.type== 'TextArea') {
+      <ul class="">
+        <li class="singletab-appfileld customtextarea">
+          <!-- To display textArea -->
+          <mat-form-field placeholder="input.label" class="full-width" #formField>
+            <mat-label>{{input.placeholder}} </mat-label>
+            <textarea matInput [rows]="input.rows" [maxlength]="input.maxLength != -1 ? input.maxLength: ''"
+              class="full-width" [(ngModel)]="inputValue" (blur)="emitValues()" [disabled]="input.isDisabled"
+            (keyup.enter)="search()"></textarea>
+            <!-- <mat-hint align="end" *ngIf="input.maxLength != -1">{{inputValue?.length || 0}} /
+            {{input.maxLength}}
+          </mat-hint> -->
+        </mat-form-field>
+      </li>
+    </ul>
+  }
+</app-field-skeleton-loader>
+} @else {
+  <app-label [appLabel]="labelObj" [isTableView]="isTableView"></app-label>
+}
+

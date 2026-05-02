@@ -1,0 +1,29 @@
+<table mat-table [dataSource]="skeletonDataSource">
+  @for (col of columnsToDisplay; track col; let i = $index) {
+    <ng-container [matColumnDef]="col">
+      <th mat-header-cell *matHeaderCellDef>
+        <ngx-skeleton-loader animation="progress" appearance="line"
+        [theme]="{ height: '30px' }"></ngx-skeleton-loader>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <ngx-skeleton-loader animation="progress" appearance="line"
+        [theme]="{ height: '25px' }"></ngx-skeleton-loader>
+      </td>
+    </ng-container>
+  }
+
+  <ng-container matColumnDef="actions" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef>
+      <ngx-skeleton-loader animation="progress" appearance="circle"
+      [theme]="{ height: '30px', width: '30px' }"></ngx-skeleton-loader>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <ngx-skeleton-loader animation="progress" appearance="circle"
+      [theme]="{ height: '30px', width: '30px' }"></ngx-skeleton-loader>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+</table>

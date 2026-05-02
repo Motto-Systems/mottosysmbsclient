@@ -1,0 +1,249 @@
+<!-- ══════════════════════════════════════════════════════════════════════
+     PAGE HEADER
+════════════════════════════════════════════════════════════════════════ -->
+<custom-pageHead pageTitle="Sample Prototype" status="" refNo=""></custom-pageHead>
+
+<mat-card class="mt-2">
+  <mat-card-content>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 1 – Textbox & Textarea
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mb-3">
+      1 &nbsp;|&nbsp; Textbox &amp; Textarea
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-textbox
+          #validate
+          [input]="fieldsInfo.fullName"
+          [inputValue]="sampleBO.fullName"
+          (value)="sampleBO.fullName = $event">
+        </app-textbox>
+      </div>
+
+      <div class="col-md-6">
+        <app-textbox
+          #validate
+          [input]="fieldsInfo.email"
+          [inputValue]="sampleBO.email"
+          (value)="sampleBO.email = $event">
+        </app-textbox>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <app-textbox
+          #validate
+          [input]="fieldsInfo.remarks"
+          [inputValue]="sampleBO.remarks"
+          (value)="sampleBO.remarks = $event">
+        </app-textbox>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 2 – Dropdown (Single & Multi-select)
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      2 &nbsp;|&nbsp; Dropdown (Single &amp; Multi-select)
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-dropdown
+          #validate
+          [dropdownDetails]="fieldsInfo.department"
+          [dropdownList]="fieldsInfo.departmentList"
+          [selectedValues]="sampleBO.departmentId"
+          (changeOfdropdownValue)="setDepartment($event)">
+        </app-dropdown>
+      </div>
+
+      <div class="col-md-6">
+        <app-dropdown
+          #validate
+          [dropdownDetails]="fieldsInfo.role"
+          [dropdownList]="fieldsInfo.roleList"
+          [selectedValues]="sampleBO.roleIds"
+          (changeOfdropdownValue)="setRole($event)">
+        </app-dropdown>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 3 – Checklist / Checkboxes
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      3 &nbsp;|&nbsp; Checklist / Checkboxes
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <app-checklist
+          [checklistDetails]="fieldsInfo.skills"
+          [list]="fieldsInfo.skillList"
+          (changeOfValue)="onSkillsChange($event)">
+        </app-checklist>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 4 – Date Picker
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      4 &nbsp;|&nbsp; Date Picker
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <app-datetimepicker
+          #validate
+          [input]="fieldsInfo.joiningDate"
+          [dateValue]="sampleBO.joiningDate"
+          (onDateClick)="onDateChange($event)">
+        </app-datetimepicker>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 5 – Lookup
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      5 &nbsp;|&nbsp; Lookup
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <mspl-lookup
+          lookupCode="EMPLOYEE_LOOKUP"
+          lookupTitle="Employee"
+          [disableBtn]="false"
+          [selectedValue]="sampleBO.employee"
+          (onSelect)="onEmployeeSelect($event)">
+        </mspl-lookup>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 6 – Data Grid (app-grid)
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      6 &nbsp;|&nbsp; Data Grid
+    </div>
+
+    <app-grid
+      [headers]="gridHeaders"
+      [dataSource]="dataSource"
+      [columnActions]="gridActions"
+      (onscreenActionEmit)="onGridAction($event)">
+    </app-grid>
+
+    <no-data-available
+      *ngIf="dataSource.data.length === 0"
+      infoMsg="No records found"
+      [showActivityMsg]="false">
+    </no-data-available>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 7 – Custom Link
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      7 &nbsp;|&nbsp; Custom Link
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <custom-link
+          linkText="View Reference Document"
+          className="link_button"
+          (linkClick)="onLinkClick()">
+        </custom-link>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 8 – Buttons (primary & secondary)
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      8 &nbsp;|&nbsp; Custom Buttons
+    </div>
+
+    <div class="d-flex gap-2">
+
+      <custom-button
+        btnText="Save"
+        className="primary_button"
+        (btnClick)="save()">
+      </custom-button>
+
+      <custom-button
+        btnText="Add"
+        className="primary_button ml-2"
+        (btnClick)="openModal()">
+      </custom-button>
+
+      <custom-button
+        btnText="Clear"
+        className="secondary_button ml-2"
+        (btnClick)="clear()">
+      </custom-button>
+
+      <custom-button
+        btnText="Cancel"
+        className="secondary_button ml-2"
+        (btnClick)="cancel()">
+      </custom-button>
+
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 9 – Remarks
+    ═══════════════════════════════════════════════════════ -->
+    <div class="page-title-secondary w-100 mt-4 mb-3">
+      9 &nbsp;|&nbsp; Remarks
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <app-remarks
+          [formData]="sampleBO"
+          propertyName="remarks"
+          mode="MNG"
+          moduleCode="SAMPLE">
+        </app-remarks>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 10 – Modal Popup  (app-modal-popup)
+════════════════════════════════════════════════════════════════════════ -->
+@if (isModalOpen) {
+<app-modal-popup
+  pageTitle="Sample Modal"
+  [isModalPopup]="true"
+  (closeModal)="closeModal()">
+
+  <div class="row">
+    <div class="col-md-12">
+      <app-textbox
+        #validate
+        [input]="fieldsInfo.modalRemarks"
+        [inputValue]="sampleBO.modalRemarks"
+        (value)="sampleBO.modalRemarks = $event">
+      </app-textbox>
+    </div>
+  </div>
+
+  <div class="mt-3 d-flex gap-2">
+    <custom-button btnText="Save"   className="primary_button"        (btnClick)="save(); closeModal()"></custom-button>
+    <custom-button btnText="Cancel" className="secondary_button ml-2" (btnClick)="closeModal()"></custom-button>
+  </div>
+
+</app-modal-popup>
+}

@@ -1,0 +1,22 @@
+<ng-container>
+  <div fxLayout="column" fxLayout="row wrap" fxLayoutAligmnet="space-between start" class="mt-2 mb-2">
+    <div fxFlex.lt-sm="70" fxFlex.lt-md="70" [fxFlex]="fieldFlex" class="pr-2 search-appgrid-view">
+      <mat-form-field appearance="outline">
+        <mat-label>{{label}}</mat-label>
+        <input matInput [formControl]="fieldsInfo.searchControl" placeholder="Search..." />
+
+        <span matSuffix class="mat-icon-suffix">
+          <span  class="fa-icon-magnifying-glass-regular"></span>
+        </span>
+
+      </mat-form-field>
+    </div>
+    @if (isShowStateDropdown) {
+      <div fxFlex.lt-sm="30" fxFlex.lt-md="30" fxFlex="30">
+        <app-dropdown [dropdownDetails]="fieldsInfo.stateDropdown" [dropdownList]="fieldsInfo.stateList"
+          [selectedValues]="filterBO.selectedState" (changeOfdropdownValue)="onStateFilter($event.value)">
+        </app-dropdown>
+      </div>
+    }
+  </div>
+</ng-container>

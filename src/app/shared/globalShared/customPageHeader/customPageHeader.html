@@ -1,0 +1,91 @@
+<!-- customPageHeader.html -->
+<!-- Skeleton Loader -->
+@defer (on timer(1s)) {
+<div class="pagetitlebottomline">
+  <div class="pagetitlestyle">
+
+    <div class="back-url">
+      @if (this._context.pageHeaderInfo.backUrl) {
+        <span (click)="back()"
+        class="fa-icon-circle-arrow-left-sharp-light"></span>
+      }
+    </div>
+
+    <div>{{_context.pageHeaderInfo.moduleTitle}}</div>
+  </div>
+  <div class="pagetitleright" style="display: flex">
+    @if (_context.pageHeaderInfo.refNo) {
+      <div class="docno-history">
+        {{ _context.pageHeaderInfo.refNo}}
+      </div>
+    }
+    @if (_context.pageHeaderInfo.status) {
+      <div class="docno-history">{{ _context.pageHeaderInfo.status}}</div>
+    }
+    @if (_context.pageHeaderInfo.viewExceptionVisible) {
+      <div class="view-history-btn">
+        <button type="button" matTooltip="Exceptions" (click)="viewException()" class="custom-page-header-icon-btn">
+          <span class="fa-icon-lightbulb-exclamation-light"></span>
+        </button>
+      </div>
+    }
+    @if (_context.pageHeaderInfo.isShowDoc) {
+      <div class="view-history-btn">
+        <button type="button" matTooltip="Upload Documents" (click)="uploadDocuments()"
+          class="custom-page-header-icon-btn">
+          <span class="fa-icon-file-arrow-up-light"></span>
+        </button>
+      </div>
+    }
+
+    @if (_context.pageHeaderInfo.isShowRpt) {
+      <div class="view-history-btn">
+        <button type="button" matTooltip="View Reports" (click)="viewReports()" class="custom-page-header-icon-btn">
+          <span class="fa-icon-file-chart-column-light"></span>
+        </button>
+      </div>
+    }
+
+    @if (_context.pageHeaderInfo.viewHistoryVisible) {
+      <div class="view-history-btn">
+        <button type="button" matTooltip="View History" (click)="viewHistory()" class="custom-page-header-icon-btn">
+          <span class="fa-icon-clock-rotate-left-light"></span>
+        </button>
+      </div>
+    }
+
+    @if (_context.pageHeaderInfo.showConfirm && _context.pageHeaderInfo.basicInfoId) {
+      <div class="btn-confirmli">
+        <button btnLoader mat-raised-button class="btn-confirmn" (click)="confirmEvent()">
+          Confirm
+        </button>
+      </div>
+    }
+  </div>
+</div>
+@if (_context.pageHeaderInfo.pageTitle) {
+  <div class="pagetitle-container">
+    <div class="pagetitle">
+      {{_context.pageHeaderInfo.pageTitle}}
+    </div>
+  </div>
+}
+}
+@placeholder() {
+<div class="skeleton-line">
+  <ngx-skeleton-loader class="back-skeleton" count="1" appearance="circle">
+  </ngx-skeleton-loader>
+  <ngx-skeleton-loader class="title-skeleton" count="1" appearance="line">
+  </ngx-skeleton-loader>
+  <ngx-skeleton-loader count="3" class="confirm-skeleton" appearance="line">
+  </ngx-skeleton-loader>
+</div>
+
+@if (isLoadTabSection) {
+  <div class="pagetitle-container">
+    <ngx-skeleton-loader class="tab-names-skeleton" count="1" appearance="line">
+    </ngx-skeleton-loader>
+  </div>
+}
+
+}

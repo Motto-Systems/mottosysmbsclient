@@ -1,0 +1,42 @@
+<div class="searcharea">
+  <div class="search-container-advanced">
+    <div class="searchfld-btn">
+      <div class="search-fld search-icon-view-k">
+        <mat-form-field appearance="outline" class="searchdiv">
+          <mat-label> {{searchBy}}</mat-label>
+          <input matInput autocomplete="disabled" (keyup.enter)="enterClick()" [ngClass]="{'hide' : hasSearchVal()}"
+            [(ngModel)]="advanceSearch" class="searchinput" [readonly]="hasSearchVal()" />
+
+            <span matSuffix (click)="enterClick()" class="mat-icon-k">
+              <span class="fa-icon-search-icon-thin"></span>
+            </span>
+          </mat-form-field>
+        </div>
+
+        <div class="advsearch">
+          <button mat-button matTooltip="Advance Search" class="advanced-search-matbtn" (click)="openModal()">
+            <span class="fa-icon-angles-down-thin"></span>
+          </button>
+        </div>
+      </div>
+
+      @if (searchResult && searchResult.length > 0) {
+        <div class="chip-container">
+          <mat-chip-grid>
+            <div class="mat-chip-list-wrapper searchchip">
+              @for (item of searchResult; track item; let i = $index) {
+                <mat-chip-row>
+                  <div>{{item.name}}</div>
+                  <div class="clear-icon">
+                    <span matTooltip="Clear" class="mat-icon-k" (click)="clearOptions(item.code, i)">
+                      <span class="fa-icon-xmark-regular"></span>
+                    </span>
+                  </div>
+                </mat-chip-row>
+              }
+            </div>
+          </mat-chip-grid>
+        </div>
+      }
+    </div>
+  </div>

@@ -1,0 +1,91 @@
+<ng-template #sidenavTemplate>
+  <div class="search-container fixed-search">
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Search" [(ngModel)]="searchText" />
+      <span class="mat-icon-suffix" matSuffix>
+        <span class="fa-icon-magnifying-glass-regular"></span>
+      </span>
+    </mat-form-field>
+  </div>
+
+  <div class="expandall-btn" (click)="expandAll()" [attr.data-action]="allExpanded ? 'Collapse All' : 'Expand All'">
+    <span> <i class="{{ allExpanded ? 'fa-icon-angle-up-light' : 'fa-icon-angle-down-light' }}"></i></span>
+  </div>
+
+  <!-- Loading spinner -->
+  @if (loading()) {
+  <div class="menu-loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading menu...</p>
+  </div>
+  }
+
+  <!-- Expansion panels -->
+  @for (item of filteredData(); track item; let i = $index) {
+  <mat-expansion-panel [expanded]="item.expanded">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span [className]="item.cssClass"></span> {{ item.moduleTitle }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ul>
+      @for (sub of item.formsInfo; track $index) {
+      <li>
+        <a href="Javascript:" (click)="navigateParent(item, sub)">
+          {{ sub.formsTitle }}
+        </a>
+      </li>
+      }
+      @empty {
+      <li>N/A</li>
+      }
+    </ul>
+  </mat-expansion-panel>
+  }
+  @empty {
+  <no-data-available [iconClass]="'fa-icon-box-archive-light'" [infoMsg]="'No menu items found'"
+    [showActivityMsg]="false"></no-data-available>
+  }
+</ng-template>
+
+<div>
+  <app-header [applications]="applications"></app-header>
+  <div class="sidebar-custom">
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav mode="side" [opened]="true" class="gsidenav" [disableClose]="true">
+        <ul class="p-0 main-nav-ul">
+          @for (section of sidenavSections(); track section.code) {
+          <li class="p-0">
+            <a href="Javascript:" [ngClass]=" {'active':_context.currentGroup === section.code}"
+              (click)="toggleSection(section.code)" [matTooltip]="section.label">
+              <span [class]="section.icon"></span>
+            </a>
+          </li>
+          }
+        </ul>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="sidebarmenu-content">
+        <mat-sidenav-container (backdropClick)="closeAllSidenavs()">
+
+          @for (section of sidenavSections(); track section.code) {
+          <mat-sidenav class="sidebarmenu" #sidenavRef mode="over" [opened]="activeGroup() === section.code"
+            (openedChange)="onSidenavToggle($event)">
+            <ng-container *ngTemplateOutlet="sidenavTemplate"></ng-container>
+          </mat-sidenav>
+          }
+
+          <mat-sidenav-content>
+            <div class="mainbody">
+              @if (_context.pageHeaderInfo.showPageHeader) {
+              <custom-pageHead></custom-pageHead>
+              }
+              <router-outlet></router-outlet>
+            </div>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

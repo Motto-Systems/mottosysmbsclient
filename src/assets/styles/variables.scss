@@ -1,0 +1,77 @@
+:root {
+  /* MBS Theme */
+  --primary-color: #6B00B3;   // Purple - main theme
+  --secondary-color: #42A5F5; // Light blue accent
+}
+
+/* Optional: MBS theme */
+.mbs-theme {
+  --primary-color: #6B00B3;
+  --secondary-color: #42A5F5;
+}
+
+$menu: #f5f5f5;
+$black: #000000;
+$white: #fff;
+
+$grey10: #fcfcfc;
+$grey25: #f8f8f8;
+$grey50: #f2f2f2;
+$grey100: #eaecf0;
+$grey150: #d8d8d8;
+$grey200: #c4c4c4;
+$grey300: #b2b7c2;
+$grey400: #8c94a4;
+$grey500: #667085;
+$grey600: #5b6b85;
+$grey700: #526179;
+$grey800: #1d2939;
+
+/* Greens (used for success/sample status) */
+$green10: #e6f7f5;
+$green20: #b2dfdb;
+$green50: #d1fadf;
+$green100: #00897B;
+$green200: #26A69A;
+$green500: #009688;
+$green600: #00796B;
+$green800: #004D40;
+
+/* Yellow / Warning */
+$yellow50: #FFF8E1;
+$yellow100: #FFD54F;
+$yellow200: #FFB300;
+$yellow500: #F59E0B;
+$yellow800: #B45309;
+
+/* Error */
+$red50: #fee4e2;
+$red100: #fda19b;
+$red200: #f97066;
+$red500: #f04438;
+$red800: #b32318;
+
+/* Blue (for buttons, links, highlights) */
+$blue50: #E3F2FD;
+$blue100: #BBDEFB;
+$blue200: #90CAF9;
+$blue500: #2196F3;
+$blue800: #1565C0;
+
+$bluemain: #1976D2;
+
+/* Main theme colors */
+$primaryColor: #6B00B3;     // Purple Primary
+$secondaryColor: #42A5F5;   // Accent blue
+
+$orange: #e0792c;
+$orange10: #ff9240;
+$orange50: #fef8f4;
+
+$titlegrey: #6b7280;
+$purple: #7c3aed;
+
+/* Search UI */
+$searchhead: #eef6f9;
+$searchhead-text: #4a5777;
+$searchpagenum: #f4f7fb;

@@ -1,0 +1,171 @@
+<mat-toolbar class="headerbg headerulli">
+  <ul class="full-width">
+    <li class="gmplogo">
+      <div class="logo-header ds-vr-18072025">
+        <img width="211px" alt="GMP Pro" [src]="'assets/img/GMPProLogo.png'" (click)="redirectHome()" />
+        <div class="details-info">
+          <div class="dep-name">{{ usrDetails.deptName }}</div>
+          <div class="unit-name">{{ usrDetails.unitName }}</div>
+        </div>
+      </div>
+    </li>
+    <li class="flr appmenumain" [matMenuTriggerFor]="menu1">
+      <button class="application-title">
+        <span class="fa-icon-grid-2-light"></span>
+      {{appCode}}</button>
+      <mat-menu #menu1="matMenu" yPosition="below" xPosition="before">
+        <ul>
+          @for (app of applications; track app) {
+            <li (click)="navigateApp(app.applicationUrl, app.applicationCode)">
+              <span><img [src]="app.imagePath" height="24px" width="24px"></span><span>{{ app.applicationName
+            }}</span>
+          </li>
+        }
+      </ul>
+
+    </mat-menu>
+  </li>
+  <li class="flr">
+    <div class="usericontopbar" [matMenuTriggerFor]="menu">
+      <span class="fa-icon-user-vneck-light fontsize-28"></span>
+    </div>
+    <mat-menu #menu="matMenu" class="userinfopop">
+      <div class="userinfo-details">
+        <div class="loginprofile">
+
+          <div class="profile-name">
+            <div class="userpic">RC</div>
+          </div>
+
+          <div class="logoutbtn" (click)="logout()">
+
+
+            Logout
+
+          </div>
+
+
+
+        </div>
+
+        <div class="logindetails">
+
+
+          <div class="pusername">{{usrDetails.userName}}</div>
+
+          <div class="user-deg">
+            <div class="deg-name">{{usrDetails.designationName}}</div>
+            <div>
+              <div class="dep-name"> {{usrDetails.primaryDeptName}}</div>
+              <div class="unit-name">{{usrDetails.primaryUnitName}} </div>
+            </div>
+          </div>
+
+          <div class="line-break"></div>
+
+          <div class="last-access">
+            <div class="last-acc-lbl"> Last Accessed On</div>
+
+            <div class="date-access">{{formatedate()}}</div>
+          </div>
+
+
+          <div class="line-break"></div>
+
+          <div class="user-options">
+            <div class="">
+              <button> Change Password</button>
+            </div>
+            <div class="">
+              <button (click)="navigateToManageUserInfo()"> Switch Unit / Dept</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </mat-menu>
+  </li>
+  <li class="flr ">
+    <div class="usericontopbar-right" [matMenuTriggerFor]="menu2">
+      <div class="notifications-count">10</div>
+      <span mat-icon class="fa-icon-bell-light fontsize-28"></span>
+    </div>
+    <mat-menu #menu2="matMenu">
+
+      <div class="notifications-main">
+        <div class="notifications-sub">
+          <ul class="topnav-noti">
+            <li>Notifications</li>
+            <li>Application<span>4</span></li>
+            <li>Admin<span>10</span></li>
+          </ul>
+        </div>
+
+        <div class="notifications-sub">
+          <ul class="user-noti">
+            <li>
+              <div class="ub">VS</div>
+              <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+            nulla eu sapien blandit dignissim.</span></div>
+          </li>
+          <li>
+            <div class="ub">VS</div>
+            <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+          nulla eu sapien blandit dignissim.</span></div>
+        </li>
+        <li>
+          <div class="ub">VS</div>
+          <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+        nulla eu sapien blandit dignissim.</span></div>
+      </li>
+      <li>
+        <div class="ub">VS</div>
+        <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+      nulla eu sapien blandit dignissim.</span></div>
+    </li>
+    <li>
+      <div class="ub">VS</div>
+      <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+    nulla eu sapien blandit dignissim.</span></div>
+  </li>
+  <li>
+    <div class="ub">VS</div>
+    <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+  nulla eu sapien blandit dignissim.</span></div>
+</li>
+<li>
+  <div class="ub">VS</div>
+  <div class="info-text"><span>Sed lacinia luctus imperdiet.</span><span>Donec consequat
+nulla eu sapien blandit dignissim.</span></div>
+</li>
+</ul>
+</div>
+<div class="notifications-sub">
+  <div class="user-nav">
+    <mat-icon matTooltip="Previous Page" class="pagingbtnb">
+      <span class="fa-icon-angle-left-light"></span>
+    </mat-icon>
+    <mat-icon matTooltip="Next Page" class="pagingbtnf">
+      <span class="fa-icon-angle-right-light"></span>
+    </mat-icon>
+  </div>
+</div>
+</div>
+</mat-menu>
+</li>
+
+
+
+<li class="flr">
+  <div class="usericontopbar-right pl-125">
+
+
+
+    <span class="fa-icon-magnifying-glass-light fontsize-28"></span>
+  </div>
+
+</li>
+</ul>
+
+</mat-toolbar>

@@ -1,0 +1,76 @@
+<style>
+  ::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+    border-color: var(--primary-color) !important;
+  }
+</style>
+
+<app-modal-popup [pageTitle]="'Confirmation'" (closeModal)="closeDialog()">
+  <div class="approval-modal-content">
+    <div fxLayout="column" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="32">
+        <app-label [appLabel]="approvalFieldInfo.workflow" [className]="'text-color'"></app-label>
+      </div>
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="32">
+        <app-label [appLabel]="approvalFieldInfo.requestCode" [className]="'text-color'"></app-label>
+      </div>
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="32">
+        <app-dropdown [dropdownDetails]="approvalFieldInfo.confirm" [dropdownList]="approvalFieldInfo.toggleView"
+          [selectedValues]="approvalFieldInfo.viewId"
+          (changeOfdropdownValue)="toggleChange($event.value)"></app-dropdown>
+      </div>
+      @if (approvalFieldInfo.viewId ==='Action Confirmation') {
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="49" fxFlex="49">
+        <app-dropdown #validate [dropdownDetails]="approvalFieldInfo.action" [dropdownList]="actionList"
+          [selectedValues]="approvalProcessObj.actionID"
+          (changeOfdropdownValue)="changeAction($event.value)"></app-dropdown>
+      </div>
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="49" fxFlex="49">
+        <app-label [appLabel]="approvalFieldInfo.statusInfo" [className]="'text-color'"></app-label>
+      </div>
+      @if (approvalUserList.length > 0) {
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100" class="page-title-secondary mt-2">
+        <h6>{{uiTitles.HEADER}}</h6>
+      </div>
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="20">
+        <app-dropdown [dropdownDetails]="approvalFieldInfo.users" [dropdownList]="usersList"
+          [selectedValues]="approvalFieldInfo.userID"
+          (changeOfdropdownValue)="approvalFieldInfo.userID = $event.value"></app-dropdown>
+      </div>
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="10" fxLayoutAlign="start center">
+        <custom-button [className]="'btn-confirm ml-3'" [btnText]="uiTitles.ADD" (click)="addUser()"></custom-button>
+      </div>
+      <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="70" class="mb-2">
+        <app-grid [headers]="userHeaderData" [dataSource]="userDataSource"></app-grid>
+      </div>
+      }
+      @if (approvalUserList.length <= 0 && approvalProcessObj.actionID> 0
+        && approvalAction.routingLevelID > 0 && approvalAction.escalationType !== 'MULTIUSER') {
+        <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100" class="mt-2 mb-2">
+          <mat-progress-bar mode="indeterminate" color="primary">
+          </mat-progress-bar>
+        </div>
+        }
+        <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100" class="mt-2">
+          <app-textbox #validate [input]="approvalFieldInfo.remarks" [inputValue]="approvalProcessObj.remarks"
+            (value)="approvalProcessObj.remarks = $event"></app-textbox>
+        </div>
+        <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100" fxLayoutAlign="end center">
+          <custom-button [className]="'btn-confirm mt-3 mb-3'" [btnText]="uiTitles.CONFIRM" (click)="confirm()"
+            [disabled]="btnDisabled"></custom-button>
+        </div>
+        }
+    </div>
+
+    @if (approvalFieldInfo.viewId === uiTitles.ACTION_HISTORY) {
+    <div class="mt-3">
+      <app-grid [headers]="headerData" [dataSource]="dataSource" [extraColumns]="extendedData"></app-grid>
+    </div>
+    }
+
+    @if (approvalFieldInfo.viewId === uiTitles.WORKFLOW) {
+    <!-- app-view-workflow is not available in this build -->
+    }
+
+  </div>
+
+</app-modal-popup>

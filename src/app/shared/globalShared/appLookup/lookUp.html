@@ -1,0 +1,72 @@
+<!-- <div [ngClass]="{hide: disableBtn}" class="lookup-wrapper-k">
+
+  <mat-card class="matcard-custom-0">
+    <mat-card-content class="lkp-field">
+      <mat-form-field appearance="outline" class="searchLookUpTxt full-width" id="lkp-{{uniqueId}}"
+        [ngClass]="{'allow-mulselect': info.multiSelectOption, 'pb-0': (info.multiSelectOption && selectedData && selectedData.length > 0)}">
+        <mat-label>@if (isShowSearchText) {
+          <span>Search</span>
+          } @if (isShowSelectText) {
+          <span>Select</span>
+        }
+      {{info.title}} </mat-label>
+      <input type="text" matInput [(ngModel)]="searchVal" maxlength="1000" (keyup.enter)="onFilterClick();"
+        [readonly]="selectedText!=''" [disabled]="isDisabled"/>
+        @if (!isDisabled) {
+          <div class="buttonlookup">
+            @if (selectedText != '') {
+              <button matSuffix mat-raised-button matTooltip="Clear" class="btnlookup clear" (click)="clear()"
+                type="button" [disabled]="disableBtn">
+                <fa-icon icon="close"></fa-icon>
+              </button>
+            }
+            <button matSuffix mat-raised-button type="button" class="btnlookup" (click)="onFilterClick()"
+              [ngClass]="{'hide': selectedText != ''}">
+              <i class="material-icons">search</i>
+            </button>
+          </div>
+        }
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>
+@if (disableBtn) {
+  <div>
+    <app-label [appLabel]="getLabelObj()"></app-label>
+  </div>
+} -->
+
+<div [ngClass]="{hide: disableBtn}" class="mspl-lookup-section singletab-appfileld">
+
+    <mat-card class="matcard-custom-0">
+        <mat-card-content class="lkp-field">
+            <mat-form-field appearance="outline" class="searchLookUpTxt full-width" id="lkp-{{uniqueId}}"
+                [ngClass]="{'allow-mulselect': info.multiSelectOption, 'pb-0': (info.multiSelectOption && selectedData && selectedData.length > 0)}">
+                <mat-label class="custom-text-label">
+                    <span *ngIf="isShowSearchText">Search</span>
+                    <!-- <span *ngIf="isShowSelectText">Select</span> -->
+                    {{info.lookupTitle}}  
+                    <sup *ngIf="isMandatory" class="mandatory-view red"> <span>&#8727;</span> </sup>
+                </mat-label>
+                <input type="text" matInput [(ngModel)]="searchVal" maxlength="1000" (keyup.enter)="onFilterClick();"
+                    [readonly]="selectedText!=''" [disabled]="isDisabled"/>
+                <div *ngIf="!isDisabled" class="buttonlookup">
+
+                    <button matSuffix mat-raised-button matTooltip="Clear" class="btnlookup" (click)="clear()"
+                        type="button" [disabled]="disableBtn" *ngIf="selectedText != ''">
+                        <fa-icon icon="close"></fa-icon>
+                    </button>
+
+                    <button matSuffix mat-raised-button type="button" class="btnlookup" (click)="onFilterClick()"
+                        [ngClass]="{'hide': selectedText != ''}">
+                      <i class="fa-icon-search-mat-icon"></i>
+                    </button>
+
+                </div>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div *ngIf="disableBtn">
+    <app-label [appLabel]="this.labelObj"></app-label>
+</div>

@@ -1,0 +1,51 @@
+<div class="container-custom">
+  <div fxLayout="column" fxLayout="row wrap" fxLayoutGap="30px">
+    <!-- @defer (when isLoaded) { -->
+    @if (!isLeftHidden) {
+    <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="calc(30% - 30px)">
+      @if (leftSubTitle) {
+      <div class="page-title-secondary w-100 mb-3">
+        {{leftSubTitle}}
+      </div>
+      }
+      <ng-content select="left-content"></ng-content>
+    </div>
+    }
+    <div class="dynamic-right-panel mnh-250px" fxFlex.lt-sm="100" fxFlex.lt-md="100"
+      [fxFlex]="isLeftHidden ? '100' : '70'" style="position: relative;">
+      <div class="arrow-mid-k in-right-panel" (click)="toggleLeftSection()" [ngClass]="{ 'clicked': isClicked }">
+        <span class="fa-icon-angle-left-light"></span>
+      </div>
+      <div class="border-left-space-30x">
+        <div class="p-rel">
+          <div class="page-title-secondary">{{rightSubTitle}}</div>
+          <div class="stp-config-header-icons">
+            <div class="main-header-links">
+              @for (item of templateActions; track $index) {
+              <div matTooltip="{{item.tooltip}}" (click)="onTempAction(item, $index)"
+                [ngClass]="{'stepperActive':(actionCode === item.actionCode && !disableAction)}">
+                <span [class]="item.icon"></span>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <ng-content select="right-content"></ng-content>
+      </div>
+    </div>
+    <!-- } -->
+    <!-- @placeholder() {
+    <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="calc(30% - 30px)">
+      <ngx-skeleton-loader class="w-50" [count]="1" [appearance]="'line'" [animation]="'progress'"
+        [theme]="{ height: '25px' }" />
+    </div>
+    <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="2">
+      <ngx-skeleton-loader [count]="1" [appearance]="'line'" [animation]="'progress'"
+        [theme]="{ height: '450px', width:'10px' }" />
+    </div>
+    <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="68">
+      <ngx-skeleton-loader [count]="1" [appearance]="'line'" [animation]="'progress'" [theme]="{ height: '25px' }" />
+    </div>
+    } -->
+  </div>
+</div>

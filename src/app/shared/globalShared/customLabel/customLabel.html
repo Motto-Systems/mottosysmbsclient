@@ -1,0 +1,20 @@
+@if (isTableView =='NO') {
+  <app-field-skeleton-loader [fieldSkeletonBO]="skeletonOptions">
+    <div class="view-inv view_list">
+      <ul>
+        <li>
+          <mat-label>
+            @if (appLabel.placeholder) {
+              <span class="d-block viewlable"
+              [ngClass]="getClassFromPlaceholder(appLabel.placeholder)"> {{appLabel.placeholder}}</span>
+            }
+            <ng-content></ng-content>
+            <span class="d-block viewlable-value">{{getValue() || 'N / A'}}</span>
+          </mat-label>
+        </li>
+      </ul>
+    </div>
+  </app-field-skeleton-loader>
+} @else {
+  {{getValue() || 'N / A'}}
+}

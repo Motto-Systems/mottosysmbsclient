@@ -1,0 +1,10 @@
+@defer (on timer(500ms)) {
+<ng-content></ng-content>
+}
+@placeholder {
+@for (item of skeletonList; track $index) {
+<div [class]="item.widthClass">
+    <ngx-skeleton-loader [count]="item.count" [appearance]="'line'" [animation]="item.animation" [theme]="item.theme" />
+</div>
+}
+}

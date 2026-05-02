@@ -1,0 +1,105 @@
+<div [ngSwitch]="input.dateType" *ngIf="input.mode == 'MNG'; else elseBlock">
+    <app-field-skeleton-loader>
+        <div class="singletab-appfileld customdatepicker">
+            <ul>
+                <li>
+                    <!-- <span>{{input.placeholder}}</span> -->
+
+                    <span *ngSwitchCase="'date'">
+                        <mat-form-field appearance="outline" placeholder="Date" class="full-width"
+                            [ngClass]="getClassFromPlaceholder(input.placeholder)">
+                            <mat-label>{{input.placeholder}}
+                                <!-- <span *ngIf="input.isMandatory" class="fieldMandatory">*</span> -->
+                            </mat-label>
+                            <input matInput [(ngModel)]="dateValue" [matDatepicker]="date" readonly autocomplete="false"
+                                (dateChange)="check(true)" [max]="input.maxDate" [min]="input.minDate"
+                                (focus)="date.open()">
+                            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+                            <mat-datepicker #date [touchUi]="false">
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </span>
+
+                    <span *ngSwitchCase="'dateTime'">
+
+                        <mat-form-field appearance="outline" placeholder="Date" class="full-width">
+                            <mat-label>{{input.placeholder}}
+                                <!-- <span *ngIf="input.isMandatory" class="fieldMandatory">*</span> -->
+                            </mat-label>
+
+
+                            <div class="date-container">
+                                <input class="shadow-input" name="date_time" [(ngModel)]="dateValue" [owlDateTime]="dt1"
+                                    [min]="input.minDate" [max]="input.maxDate" (ngModelChange)="check(true)" readonly>
+                                <input matInput type="text" [value]="appLabelForDate.inputValue" readonly>
+
+                                <span class="trigger-clear" (click)="clear()">
+                                    <span class="fa-icon-xmark-regular"></span>
+                                </span>
+                                <span class="trigger" [owlDateTimeTrigger]="dt1">
+                                    <fa-icon icon="calendar-alt"></fa-icon>
+                                </span>
+
+                                <owl-date-time [pickerType]="'both'" [hour12Timer]="hour12Timer" #dt1></owl-date-time>
+                            </div>
+                        </mat-form-field>
+                    </span>
+
+                    <span *ngSwitchCase="'sysdatetime'">
+                        <mat-form-field appearance="outline" placeholder="Date" class="full-width">
+                            <mat-label>{{input.placeholder}}<span *ngIf="input.isMandatory"
+                                    class="fieldMandatory">*</span></mat-label>
+                            <div class="date-container">
+
+                                <input matInput autocomplete="false" [(ngModel)]="formattedDate" readonly>
+
+                                <span class="trigger-clear" (click)="clear()">
+                                    <span class="fa-icon-xmark-regular"></span>
+                                </span>
+                                <span class="trigger" (click)="getDateTime(input.placeholder)">
+                                    <fa-icon icon="calendar-alt"></fa-icon>
+                                </span>
+                                <!-- <button matSuffix mat-raised-button matTooltip="Get Current Date" class="btnlookup clear"
+                            type="button" >
+                            <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                        <fa-icon matSuffix></fa-icon> -->
+                            </div>
+                        </mat-form-field>
+                    </span>
+
+                    <span *ngSwitchCase="'range'">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-date-range-input [rangePicker]="campaignOnePicker" [comparisonStart]="dateRangeFrom"
+                                [comparisonEnd]="dateRangeTo">
+                                <input matStartDate [(ngModel)]="dateRangeFrom" readonly (dateChange)="check(true)"
+                                    (focus)="campaignOnePicker.open()">
+                                <input matEndDate [(ngModel)]="dateRangeTo" readonly (dateChange)="check(true)"
+                                    (focus)="campaignOnePicker.open()">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+                        </mat-form-field>
+                    </span>
+
+                    <span *ngSwitchCase="'time'">
+
+                        <mat-form-field appearance="outline" placeholder="Date" class="full-width">
+                            <mat-label>{{input.placeholder}}
+                                <!-- <span *ngIf="input.isMandatory" class="fieldMandatory">*</span> -->
+                            </mat-label>
+                            <!-- <input matInput class="form-control flatpickr-input" mwlFlatpickr [(ngModel)]="timeValue"
+                            [noCalendar]="true" [enableTime]="true" [minuteIncrement]="1" [dateFormat]="'H:i'"> -->
+                        </mat-form-field>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </app-field-skeleton-loader>
+</div>
+
+<ng-template #elseBlock>
+    <ng-container>
+        <app-label [appLabel]="appLabelForDate"></app-label>
+    </ng-container>
+</ng-template>

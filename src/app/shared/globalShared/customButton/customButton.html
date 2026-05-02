@@ -1,0 +1,28 @@
+<style>
+  mat-spinner {
+  width: 15px !important;
+  height: 20px !important;
+}
+</style>
+
+<ng-container>
+  <button [id]="id" [disabled]="disabled" btnLoader mat-raised-button [class]="appendClassName()"
+    (click)="click($event)">
+    <!--   <fa-icon [id]="faIconId" [icon]="icon"></fa-icon>
+
+    <mat-spinner [id]="loaderId" style="display: none;"></mat-spinner> -->
+    @if (!isLoading) {
+      <fa-icon [id]="faIconId" [icon]="icon" class="fa-icons-hide"></fa-icon>
+      <span [id]="faIconId" [class]="faFontName"></span>
+    }
+
+    @if (isLoading) {
+      <mat-spinner [id]="loaderId" diameter="20" class="white-spinner"></mat-spinner>
+    }
+
+    @if (btnText) {
+      <span [id]="buttonTextId" class="pl-2 btn-name-ctrl" [ngClass]="getClassFromPlaceholder(btnText)"
+      >{{btnText}}</span>
+    }
+  </button>
+</ng-container>

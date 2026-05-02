@@ -1,0 +1,191 @@
+@use '@angular/material' as mat;
+@include mat.elevation-classes();
+@include mat.app-background();
+$md-primary: (
+    50 : #f2e6fa,
+    100 : #d5b3e8,
+    200 : #b366d9,
+    300 : #9933cc,
+    400 : #8019c1,
+    500 : #6B00B3,
+    600 : #5f00a1,
+    700 : #520090,
+    800 : #46007e,
+    900 : #33005c,
+    A100 : #d480ff,
+    A200 : #b84dff,
+    A400 : #9c1aff,
+    A700 : #8800e6,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+$my-custom-black: (
+    black: #000000,
+);
+$my-custom-white: (
+    white: #ffffff,
+);
+$my-custom-warn: (
+    50 : #f9e0e0,
+    100 : #f0b3b3,
+    200 : #e68080,
+    300 : #db4d4d,
+    400 : #d42626,
+    500 : #cc0000,
+    600 : #c70000,
+    700 : #c00000,
+    800 : #b90000,
+    900 : #ad0000,
+    A100 : #ffd7d7,
+    A200 : #ffa4a4,
+    A400 : #ff7171,
+    A700 : #ff5858,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$my-custom-grey: (
+    50 : #e0e0e0,
+    100 : #b3b3b3,
+    200 : #808080,
+    300 : #4d4d4d,
+    400 : #262626,
+    500 : #26ce21,
+    600 : #000000,
+    700 : #000000,
+    800 : #36cf18,
+    900 : #000000,
+    A100 : #a6a6a6,
+    A200 : #8c8c8c,
+    A400 : #737373,
+    A700 : #666666,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$my-custom-yellow: (
+    50 : #f6e9e1,
+    100 : #e9c8b5,
+    200 : #daa384,
+    300 : #cb7e52,
+    400 : #c0632d,
+    500 : #b54708,
+    600 : #ae4007,
+    700 : #a53706,
+    800 : #9d2f04,
+    900 : #8d2002,
+    A100 : #ffc4b9,
+    A200 : #ff9886,
+    A400 : #ff6d53,
+    A700 : #ff573a,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$my-custom-green: (
+    50 : #e1efe9,
+    100 : #b3d7c8,
+    200 : #81bca4,
+    300 : #4ea17f,
+    400 : #288d63,
+    500 : #027948,
+    600 : #027141,
+    700 : #016638,
+    800 : #015c30,
+    900 : #014921,
+    A100 : #7dffab,
+    A200 : #4aff89,
+    A400 : #17ff68,
+    A700 : #00fc59,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+$theme-primary: mat.m2-define-palette($md-primary, 500, 100);
+$theme-accent: mat.m2-define-palette($my-custom-grey, 800, 500, 200);
+$theme-warn: mat.m2-define-palette($my-custom-warn);
+$theme-yellow: mat.m2-define-palette($my-custom-yellow);
+$theme-green: mat.m2-define-palette($my-custom-green, 500);
+
+$theme: mat.m2-define-light-theme((color: (primary: $theme-primary,
+                accent: $theme-accent,
+                warn: $theme-warn,
+                yellow: $theme-yellow,
+                green: $theme-green,
+            ),
+        ));
+
+@include mat.all-component-themes($theme);
+
+

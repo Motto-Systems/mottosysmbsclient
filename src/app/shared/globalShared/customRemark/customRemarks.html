@@ -1,0 +1,49 @@
+
+
+<div class="remarks d-flex">
+  <mat-accordion class="w-100" #remarksAccordion>
+    <mat-expansion-panel #panel="matExpansionPanel" hideToggle [expanded]="false">
+      <mat-expansion-panel-header class="remarks-expansion-panel p-0" (click)="panel.toggle()"
+        (keydown.enter)="$event.preventDefault()">
+        <mat-form-field appearance="outline" class="mt-2">
+          <mat-label>{{fieldControlBO.label}}</mat-label>
+          <textarea matInput [rows]="3" [(ngModel)]="remarksObj.remarks" [placeholder]="fieldControlBO.label"
+            (keydown.enter)="$event.stopPropagation()" (keydown.space)="$event.stopPropagation()"
+          [disabled]="mode != 'MNG'"></textarea>
+          @if (mode == 'MNG') {
+            <span matSuffix class="no-of-reamrks" (click)="addRemark()">
+              <fa-icon [icon]="'paper-plane'" matTooltip="Add"></fa-icon>
+            </span>
+          }
+          <span matSuffix class="no-of-reamrks" (click)="panel.toggle()">{{remarksHistory.length}}</span>
+        </mat-form-field>
+      </mat-expansion-panel-header>
+
+      @for (a of remarksHistory | sort: 'createdOn': 'desc'; track a) {
+        <div class="remarks-history">
+          <div class="remark" style="white-space: pre-line">{{a.remarks}}</div>
+          <div class="written-by text-right mt-2">
+            <div class="d-flex">
+              <div class="mr-3">
+                {{a?.addedBy?.userName}} | {{getDateValue(a?.createdOn)}} | {{a?.addedBy?.department}}
+              </div>
+              @if (a.state == 'ACTIVE' && mode == 'MNG' && false) {
+                <fa-icon [icon]="'pen'" matTooltip="Edit" class="mr-2"
+                (click)="editRemark(a)"></fa-icon>
+              }
+              @if (a.state == 'ACTIVE' && mode == 'MNG') {
+                <fa-icon [icon]="'trash'" matTooltip="Invalid" class="mr-2"
+                (click)="invalidRemark(a)"></fa-icon>
+              }
+              @if (a.state != 'ACTIVE') {
+                <fa-icon [icon]="'ban'"
+                  [matTooltip]="a.discardedBy.userName + ' | ' +  getDateValue(a.discardedOn) + ' | ' + a.discardedBy.department"
+                class="mr-2"></fa-icon>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

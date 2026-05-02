@@ -1,0 +1,17 @@
+a.link_button {
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+a.link_button.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+mat-spinner {
+  width: 15px !important;
+  height: 20px !important;
+}

@@ -1,0 +1,57 @@
+<style>
+  .internet-info {
+  color: black;
+  height: 22vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal_wifi_off{
+transform: scale(4);
+color: red;
+}
+
+.signal_wifi_on{
+transform: scale(4);
+color: green;
+}
+
+.icon{
+margin-top: 60px;
+}
+
+.internet-info div span{
+font-weight: 500;
+}
+</style>
+
+<div class="mheader">
+  <ul>
+    <li> Network Connection </li>
+  </ul>
+</div>
+
+<div class="internet-info" style="color: black;">
+  <div class="">
+    @if (!internetStatus) {
+      <span class="signal_wifi_off">
+        <span class="fa-icon-signal-wifi-off-mat-icon"></span>
+      </span>
+    }
+    @if (internetStatus) {
+      <span class="signal_wifi_on">
+        <span class="fa-icon-signal-wifi-4-bar-mat-icon"></span>
+      </span>
+    }
+  </div>
+  <div class="mt-4">
+    @if (internetStatus) {
+      <span>You are connected to internet</span>
+    }
+    @if (!internetStatus) {
+      <span>Connection lost, Please check your internet connection.</span>
+    }
+  </div>
+</div>

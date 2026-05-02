@@ -1,0 +1,72 @@
+@media screen and (max-width: 1440px) {
+    
+}
+
+@media screen and (max-width: 1280px) {
+
+    .login-form{
+    right: -222px!important;
+    left: auto!important;
+}
+
+    .todoscrollgrid{
+        flex-direction: column;
+        gap: 80px!important;
+        .todo-thumbnail{
+            margin-left: -80px;
+        }
+    }
+    .todo-leftpanel{
+        display: flex;
+        justify-content: center;
+        
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+
+@media screen and (max-width: 960px) {
+    
+.login-form{
+    width: 500px!important;
+    height: 500px!important;
+    right: -222px!important;
+    left: auto!important;
+        padding: 108px 30px 30px!important;
+}
+.gmp-icon-view{
+    width: 250px!important;
+    height: 250px!important;
+left: -192px!important;
+}
+.gmp-design-cir-2{
+    left: -169px!important;
+}
+.todoscrollgrid{
+    flex-direction: column;
+}
+.todoscrollgrid{
+       
+        gap: 100px!important;
+       
+    }
+.home-right-panel{
+    flex-direction: column;
+    gap: 30px;
+}
+
+.todolisthead{
+    padding: 15px;
+    border-radius: 12px;
+}
+.todo-right-top-head{
+ border-radius: 12px;
+}
+}

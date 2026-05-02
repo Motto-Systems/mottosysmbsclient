@@ -1,0 +1,61 @@
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(60, 70, 100, 0.18);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.loader-card {
+    background: rgba(255, 255, 255, 0.85); /* Light transparent white */
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60, 70, 100, 0.18);
+    padding: 32px 40px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 450px;
+    max-width: 90vw;
+}
+
+.spinner-container {
+    margin-bottom: 12px;
+}
+
+::ng-deep .custom-spinner circle {
+    stroke: var(--primary-color) !important;
+}
+
+.loader-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--primary-color); //#2d3a4b;
+    margin-top: 8px;
+}
+
+.loader-icon {
+    font-size: 25px;
+    height: 25px;
+    width: 25px;
+    color: #1976d2;
+}
+
+@media (max-width: 600px) {
+    .loader-card {
+        min-width: 220px;
+        padding: 18px 12px 12px 12px;
+    }
+
+    .loader-message {
+        font-size: 1rem;
+    }
+}

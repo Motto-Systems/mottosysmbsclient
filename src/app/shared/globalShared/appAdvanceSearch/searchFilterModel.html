@@ -1,0 +1,38 @@
+
+@if (!isMinimized) {
+  <div class="jw-modal" cdkDrag cdkDragRootElement=".cdk-overlay-pane" #popupDrag="cdkDrag" #popupDragElem (cdkDragMoved)="onDragMoved($event)">
+    <div class="jw-modal-body">
+      <div class="mheader dialog-header" cdkDragHandle #popupHandle>
+        <ul>
+          <li>Advanced Search</li>
+          <li class="d-flex">
+            <span class="fa-icon-remove-mat-icon close-btn minimize" aria-hidden="false"  (click)="minimizePopup()"  style="margin:0 10px 0 0"></span>
+            <span class="close-btn" (click)="close()">
+              <span class="fa-icon-circle-xmark-solid"></span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="jw-modal-body-inner search-wrapper">
+        <div class="mxh-200px p-3">
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+<div class="jw-modal-background"></div>
+
+@if (isMinimized) {
+  <div #myDiv
+    class="popup-minimize maximize-popup-click"
+    [class.blink]="blinkMinimizedBar"
+    (mousedown)="$event.stopPropagation()"
+    >
+    <div class="pop-title">Advanced Search</div>
+    <div class="icons-options">
+      <span class="fa-icon-angle-right-duotone-light minimize cursor-pointer" (click)="maximizePopup()"></span>
+      <span class="fa-icon-xmark-regular cursor-pointer" (click)="closex()"></span>
+    </div>
+  </div>
+}

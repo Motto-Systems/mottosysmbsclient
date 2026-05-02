@@ -1,0 +1,19 @@
+<app-modal-popup [pageTitle]="'View History'" [isModalPopup]="true" (closeModal)="closeDialog()">
+  <div class="mb-3">
+    <app-dropdown #validate [dropdownDetails]="historyOption.historyOptionsFields"
+      [dropdownList]="historyOption.historyOptionsList" [selectedValues]="type"
+      (changeOfdropdownValue)="type = $event.value"></app-dropdown>
+  </div>
+  <div class="mt-2 mb-2">
+    @if (type ==='ACTION_HISTORY') {
+    <actionHistory-mng [basicInfoID]="basicInfoId" [historyOptions]="historyOption"
+      (historyOptionsList)="updateOptions($event)"></actionHistory-mng>
+    }
+    @if (type ==='WORKFLOW') {
+    <!-- app-view-workflow is not available in this build -->
+    }
+    @if (type ==='REVISION_HISTORY') {
+    <revisionHistory [basicInfoID]="basicInfoId"></revisionHistory>
+    }
+  </div>
+</app-modal-popup>

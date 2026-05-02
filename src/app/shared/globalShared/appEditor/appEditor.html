@@ -1,0 +1,22 @@
+@if (input.mode == 'MNG') {
+  <ul>
+    <li>
+      @if (!mgMode) {
+        <span (doubleClick)="onDoubleClick()">
+          <div class="ml-2" [innerHTML]="labelObj.inputValue || 'N/A'"  class="step-operation"></div>
+        </span>
+      }
+    </li>
+    <li>
+      @if (mgMode) {
+        <span>
+          <angular-editor #validate #editorContent [config]="config" class="editorheight"
+            (blur)="onEditorBlur($event)" [(ngModel)]="inputValue"
+          (click)="emitValues()" (keyup)="emitValues()"></angular-editor>
+        </span>
+      }
+    </li>
+  </ul>
+} @else {
+  <div class="ml-2" [innerHTML]="labelObj.inputValue"></div>
+}

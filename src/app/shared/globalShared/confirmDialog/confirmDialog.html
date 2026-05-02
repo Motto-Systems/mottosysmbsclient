@@ -1,0 +1,12 @@
+<app-modal-popup [pageTitle]="title" (closeModal)="cancel()">
+    <div class="mb-2" [innerHTML]="safeMessage"></div>
+    <div class="mfooter pt-4 text-right">
+
+        <custom-button [btnText]="btnCancelText" className="secondary_button mr-3" (click)="cancel()"
+            [icon]="'remove'"></custom-button>
+
+        <custom-button [btnText]="btnOkText" (click)="proceed()" className="primary_button"
+            [icon]="'check-circle'"></custom-button>
+
+    </div>
+</app-modal-popup>

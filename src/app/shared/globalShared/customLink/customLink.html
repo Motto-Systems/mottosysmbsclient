@@ -1,0 +1,11 @@
+<ng-container>
+  <a [id]="id" btnLoader [class]="appendClassName()"  (click)="click($event)" [attr.aria-disabled]="disabled ? true : null"  href="javascript:void(0);">
+    <fa-icon [id]="faIconId" [icon]="icon"></fa-icon>
+
+    <mat-spinner [id]="loaderId" style="display: none;"></mat-spinner>
+
+    @if (linkText) {
+      <span [id]="linkTextId" class="pl-2" [ngClass]="getClassFromPlaceholder(linkText)">{{linkText}}</span>
+    }
+  </a>
+</ng-container>

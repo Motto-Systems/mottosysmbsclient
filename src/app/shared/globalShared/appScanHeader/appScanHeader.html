@@ -1,0 +1,24 @@
+<mat-toolbar class="headerbg headerulli">
+  <ul class="full-width">
+    <li class="gmplogo">
+      <div class="logo-header ds-vr-18072025">
+        <img width="211px" alt="GMP Pro" [src]="'assets/img/GMPProLogo.png'" (click)="redirectHome()" />
+      </div>
+    </li>
+    <li class="flr appmenumain" [matMenuTriggerFor]="applications.length>0 ? menu1 : null">
+      <button class="application-title">
+        <span class="fa-icon-grid-2-light"></span>
+        {{appCode}}</button>
+      <mat-menu #menu1="matMenu" yPosition="below" xPosition="before">
+        <ul>
+          @for (app of applications; track app) {
+          <li (click)="navigateApp(app.applicationUrl, app.applicationCode)">
+            <span><img [src]="app.imagePath" height="24px" width="24px"></span><span>{{ app.applicationName
+              }}</span>
+          </li>
+          }
+        </ul>
+      </mat-menu>
+    </li>
+  </ul>
+</mat-toolbar>

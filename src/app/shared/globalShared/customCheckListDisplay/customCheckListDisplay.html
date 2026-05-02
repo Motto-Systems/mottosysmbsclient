@@ -1,0 +1,140 @@
+
+<app-modal-popup [isModalPopup]="isModalPopup" [pageTitle]="checkListDisaplyTitle" (closeModal)="close()">
+
+
+  <div class="w-100">
+    <div fxLayout="row" fxLayoutAlign="end center">
+      @if (isShowCheckList) {
+        <custom-button [btnText]="'Back'" [icon]="'arrow-left'"
+          [ngClass]="mode == 'MNG' ? 'show' : 'show'" [className]="'btn-confirm mb-1 mr-1 mt-3'"
+          (btnClick)="backToCheckListData()">
+        </custom-button>
+      }
+    </div>
+  </div>
+
+
+
+  <div fxLayout="row" fxFlex="100">
+    <mat-card [ngClass]="isModalPopup? 'matcard-custom-0' :'test'" class="custom-checklist-display-k w-100">
+      @if (!isShowCheckList) {
+        <mat-card-content>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-2 custom-checklist" style="height: 60px;">
+            <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100">
+              <div fxLayout="column" fxLayout="row wrap" fxLayoutAlign="space-between start">
+                @if (checklistList && checklistList.length > 0) {
+                  <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="50" fxLayoutGap="20px">
+                    <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100" class="add-check-point-list">
+                      <app-dropdown #validateCheckList [dropdownDetails]="addCheckPointsList.addCheckListOptionField"
+                        [dropdownList]="checklistList" [selectedValues]="checklistListBO.checkList"
+                      (changeOfdropdownValue)="checklistListBO.checkList = $event.value;"></app-dropdown>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="nogrow" class="pr-10x" [align]="'right'">
+                      <custom-button [btnText]="'Add'" [icon]="'save'" class=""
+                        [ngClass]="mode == 'MNG' ? 'show' : 'hide'" [className]="'btn-confirm'"
+                        (btnClick)="addCheckList('add')">
+                      </custom-button>
+                    </div>
+                  </div>
+                } @else {
+                  <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100">
+                    <span class="noChecklist">Checklists are not assigned</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+          @if (checklistList && checklistList.length > 0) {
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-3 check-list-grid">
+              <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100">
+                <div fxLayout="column" fxLayout="row wrap" fxLayoutAlign="space-between start">
+                  <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100">
+                    <app-grid [headers]="headerData" [dataSource]="dataSource" [extraColumns]="extraHeaderData"></app-grid>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </mat-card-content>
+      }
+
+      @if (isShowCheckList) {
+        <mat-card-content class="pb-2 mt-5 checklist-grid-custom fixed-header-custom">
+          <div class="mxh-300px">
+            <!-- Headers -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="grid-header">
+              <div fxFlex.lt-sm="100" fxFlex.lt-md="10" fxFlex="7" class="header-cell ml-2">
+                S.No
+              </div>
+              <div fxFlex.lt-sm="100" fxFlex.lt-md="50" fxFlex="43" class="header-cell">
+                Check Point
+              </div>
+              <div fxFlex.lt-sm="100" fxFlex.lt-md="20" fxFlex="30" class="header-cell">
+                Options
+              </div>
+              <div fxFlex.lt-sm="100" fxFlex.lt-md="30" fxFlex="20" class="header-cell">
+                Justification
+              </div>
+            </div>
+            <!-- Body -->
+            <div class="grid-body" >
+              @if (checkPointsExecution.checkPointsLists) {
+                @for (item of checkPointsExecution.checkPointsLists; track item; let i = $index) {
+                  <div fxLayout="row" fxLayoutAlign="start center" class="cell-row"
+                    [ngClass]="{'notSelectedOtion': item.checkPointType == 'CHECKPOINT' && (item.result == null || item.result == undefined || item.result == '')}">
+                    <div fxFlex.lt-sm="100" fxFlex.lt-md="10" fxFlex="7" fxLayoutAlign="start center" class="ml-2">
+                      {{item.snum}}
+                    </div>
+                    <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="43" fxLayoutAlign="start center">
+                      <span [innerHTML]="item.title" [ngClass]="{'menuTitleBold' : item.checkPointType == 'MENUTITLE'}"></span>
+                    </div>
+                    @if (item.checkPointType == 'CHECKPOINT') {
+                      <!-- <div fxFlex.lt-sm="100" fxFlex.lt-md="50" fxFlex="20" fxLayoutAlign="start center">
+                      <app-dropdown [dropdownDetails]="item.checkListOptionField" #validate
+                        [dropdownList]="item.checkListOptionsList" [selectedValues]="item.result"
+                      (changeOfdropdownValue)="item.result = $event.value;"></app-dropdown> -->
+                    <!-- </div> -->
+                    <div fxFlex.lt-sm="100" fxFlex.lt-md="28" fxFlex="30" fxLayoutAlign="start center">
+                      <mat-radio-group [(ngModel)]="item.result" class="radio-group-horizontal" [disabled]="(mode !== 'MNG')">
+                        @for (level of levelsList; track level) {
+                          <mat-radio-button  [value]="level.label">{{level.label}}
+                          </mat-radio-button>
+                        }
+                      </mat-radio-group>
+                    </div>
+                    <div fxFlex.lt-sm="100" fxFlex.lt-md="30" fxFlex="20" fxLayoutAlign="start center">
+                      <div fxFlex="95">
+                        <app-textbox #validate [input]="item.justificationField" [inputValue]="item.justification" [isTableView]="'YES'"
+                        (value)="item.justification = $event"></app-textbox>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            } @else {
+              <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100">
+                <span class="noChecklist">Options are not available</span>
+              </div>
+            }
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="mr-2" style="margin-top: 30px" [align]="'right'">
+          <div fxFlex.lt-sm="100" fxFlex.lt-md="100" fxFlex="100">
+            @if (selectedOptionStatus != 'OBSOLETE' && mode == 'MNG') {
+              <custom-button [btnText]="'Save'" [icon]="'save'" class="" style="width: 100%;"
+                [ngClass]="mode == 'MNG' ? 'show' : 'hide'" [className]="'btn-confirm flr mb-'"
+                (btnClick)="saveCheckList()">
+              </custom-button>
+            }
+          </div>
+        </div>
+      </mat-card-content>
+    }
+
+
+  </mat-card>
+
+</div>
+
+
+</app-modal-popup>

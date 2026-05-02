@@ -1,0 +1,13 @@
+<ng-container>
+    @defer ( on timer(300ms)) {
+    <app-grid [headers]="headerData" [dataSource]="GridDataSource" [extraColumns]="extendedData"
+        (onRowClicked)="onActionClicked($event)"></app-grid>
+    }
+    @placeholder( minimum 200ms) {
+    <grid-skeleton-loader [columnCount]="headerData.length" [rowCount]="dataSource.length"></grid-skeleton-loader>
+    }
+</ng-container>
+
+<div>
+    <app-pagination></app-pagination>
+</div>

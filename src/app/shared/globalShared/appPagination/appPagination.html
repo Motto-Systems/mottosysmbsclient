@@ -1,0 +1,54 @@
+<!-- <mat-paginator [length]="totalRecords" [pageIndex]="currentSelectedIndex" [pageSize]="recordPerPage"
+    (page)="onPageIndexClick($event)">
+</mat-paginator> -->
+
+
+<div class="paging">
+    @defer (on timer(500ms)) {
+    <ul>
+        <li>
+            Total No. of Records: <b>{{totalRecords}}</b>
+        </li>
+        <li>
+            <span>
+                <mat-form-field appearance="outline">
+                    <input matInput [(ngModel)]="displayIndex" onpaste="return false" ondrop="return false"
+                        (blur)="goToPage($event)" (keypress)="keyPress($event)" autocomplete="off">
+                </mat-form-field>
+            </span>
+            <span>
+                <mat-label>of {{getTotalCount()}}</mat-label>
+            </span>
+
+            <span>
+                <div class="d-flex">
+                    <mat-icon (click)="navigate(-1)" matTooltip="Previous Page" class="pagingbtnb">
+                        <i class="fa-icon-angle-left-light"></i>
+                    </mat-icon>
+                    <mat-icon (click)="navigate(1)" matTooltip="Next Page" class="pagingbtnf">
+                        <i class="fa-icon-angle-right-light"></i>
+                    </mat-icon>
+                </div>
+            </span>
+
+        </li>
+
+    </ul>
+    }
+    @placeholder {
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-md-3">
+                <ngx-skeleton-loader class="w-100" count="1" appearance="line"
+                    [theme]="{height:'25px'}"></ngx-skeleton-loader>
+            </div>
+            <div class="col-md-6"> </div>
+            <div class="col-md-3">
+                <ngx-skeleton-loader class="w-100" count="1" appearance="line"
+                    [theme]="{height:'35px'}"></ngx-skeleton-loader>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>

@@ -1,0 +1,20 @@
+<app-modal-popup [pageTitle]="title" (closeModal)="cancel()">
+
+
+    <div fxLayout="row" fxLayoutAligmnet="space-between start" fxLayoutGap="20px">
+
+        <div fxFlex.lt-sm="100" fxFlex.lt-md="80" fxFlex="grow">
+            <app-dropdown #validate [dropdownDetails]="switchUserInfo.switchUnitDept"
+                [dropdownList]="switchUserInfo.switchUnitDeptList"
+                [selectedValues]="switchUserInfo.userDepartmentAccessID"
+                (changeOfdropdownValue)="switchUserInfo.userDepartmentAccessID = $event.value"></app-dropdown>
+        </div>
+
+        <div fxFlex.lt-sm="100" fxFlex.lt-md="18" fxFlex="nogrow" fxLayoutAlign="start center">
+            <custom-button [className]="'btn-confirm ml-2'" [btnText]="switchButton.switch"
+                (click)="switchUserUnit()"></custom-button>
+        </div>
+
+    </div>
+
+</app-modal-popup>

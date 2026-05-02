@@ -1,0 +1,44 @@
+.edit-action:before {
+  //fa-icon-pen-to-square-light
+  content: "\e92d";
+}
+
+.new-action::before {
+  content: "\e92d";
+}
+
+.chk-list-action:before {
+  //fa-icon-chk-list-action
+  content: "\e95d";
+}
+
+.weight-ver-action:before {
+  //fa-icon-weight-ver-action
+  content: "\e95e";
+}
+
+.batch-details:before {
+  //fa-icon-boxes-stacked-regular
+  content: "\e902";
+}
+
+  .pack-details:before {
+    //fa-icon-box-taped-regular
+    content: "\e901";
+  }
+
+  .manage-packs:before{
+    content: "\e901";
+  }
+
+  
+  .dedusting-action:before{
+    //fa-icon-calendar-exclamation-regular
+    content: "\e972";
+  }
+
+  .print-bpr:before{
+    //fa-icon-memo-regular
+    content: "\e93d";
+  }
+ 
