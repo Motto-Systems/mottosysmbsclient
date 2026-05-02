@@ -76,30 +76,14 @@ export const MockResponse: Record<string, any> = {
                     capability: "MANAGE"
                 }
             ]
-        }
-    ],
-
- "UserMasters/List": {
-  result: [
-    { userId: "USR001", userName: "Admin User", department: "IT", role: "Administrator", status: "Active" },
-    { userId: "USR002", userName: "John Smith", department: "Production", role: "Operator", status: "In Progress" },
-    { userId: "USR003", userName: "David Lee", department: "Quality", role: "Inspector", status: "For Approval" },
-    { userId: "USR004", userName: "Shivam", department: "Dev", role: "Developer", status: "Inactive" },
-    { userId: "USR005", userName: "Prathmesh", department: "Dev", role: "Developer", status: "In Progress" }
+        },
  
-  ],
-  totalRecords: 5
-},
- 
-"UserMasters/GetCategories": {
-  result: [
-    { itemID: 1, itemCode: "IT", item: "IT", isActive: true, isSelected: false },
-    { itemID: 2, itemCode: "PROD", item: "Production", isActive: true, isSelected: false },
-    { itemID: 3, itemCode: "QA", item: "Quality", isActive: true, isSelected: false }
-  ]
-},
-
-}
+        {
+            moduleID: 3,
+            moduleTitle: "Create Master Schedules",
+            moduleCode: "MASTER_SCHEDULE",
+            routerNavigation: "/root/masterSchedules",
+            cssClass: "fa-icon-calendar-light",
             moduleGroup: "MASTERS",
             formsInfo: [
                 {
